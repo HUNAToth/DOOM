@@ -1,4 +1,4 @@
-Doom
+﻿Doom
 
 Itemek:
 hp töltő item sml maxon nem veszi fel
@@ -9,7 +9,7 @@ felszedhető lőszer maxon nem veszi fel
 kapcsoló ki/be
 kapcsoló csak 1x nyomós
 fal ami kapcsolótól nyilik ki
-ajtó
+ajtó v0.01 2object, egy triggerarea és  egy "ajtó", ajtót behúzva gameobjectként a triggerareának E-t nyomva destroyolja
 lift
 fegyverek
 kulcs
