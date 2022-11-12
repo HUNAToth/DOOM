@@ -1,0 +1,35 @@
+Doom
+
+Itemek:
+hp töltő item sml maxon nem veszi fel
+pici hp töltő amit maxon is felvesz x-ig)200)
+armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
+felszedhető armor xig
+felszedhető lőszer maxon nem veszi fel
+kapcsoló ki/be
+kapcsoló csak 1x nyomós
+fal ami kapcsolótól nyilik ki
+ajtó
+lift
+fegyverek
+kulcs
+kulccsal nyló ajtó
+savas/lávás shites padló
+player:fegyverei vannak lőszerrel(fegyverspecifikus v nem )
+hpja páncélja van
+enemyk sebeznek
+use shit gomb (ajtót, kapcsolót)
+sprint
+robbanós hordó
+
+enemy: van x hpja, valamit lő vagy közel fut és közelharcban támad
+
+berserk
+saválló köpeny 
+x ideig tart(kijelezni)
+invisibility
+invulnerability
+
+menü
+
+UI:
