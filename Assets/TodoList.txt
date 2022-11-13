@@ -26,6 +26,7 @@ sprint
 robbanós hordó
 
 enemy: van x hpja, valamit lő vagy közel fut és közelharcban támad
+v0.01 enemy találat van, sebzés még nincs
 
 berserk
 saválló köpeny 
