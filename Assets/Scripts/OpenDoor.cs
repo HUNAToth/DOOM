@@ -12,7 +12,7 @@ public class OpenDoor : MonoBehaviour
 
     public bool TriggeredOnce = false;
 
-    public Animator anim;
+    public Animator DoorAnim;
 
     public float deactivationTime;
 
@@ -21,6 +21,10 @@ public class OpenDoor : MonoBehaviour
     public bool IsActive = false;
 
     private bool FirstActivationDone = false;
+
+    public GameObject SwitchOn;
+
+    public GameObject SwitchOff;
 
     void Start()
     {
@@ -35,9 +39,12 @@ public class OpenDoor : MonoBehaviour
             IsActive
         )
         {
-            anim.SetTrigger("IsDeactivated");
+            DoorAnim.SetTrigger("IsDeactivated");
             deactivationTimer = Mathf.Infinity;
             IsActive = false;
+
+            SwitchOff.SetActive(true);
+            SwitchOn.SetActive(false);
         }
         if (deactivationTimer >= 0)
         {
@@ -47,6 +54,7 @@ public class OpenDoor : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log("TRIGGERSTAY");
         if (
             !IsActive &&
             ((TriggeredOnce && !FirstActivationDone) || !TriggeredOnce)
@@ -54,10 +62,13 @@ public class OpenDoor : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
-                anim.SetTrigger("IsActivated");
+                DoorAnim.SetTrigger("IsActivated");
+                Debug.Log("ACTIVATED");
                 deactivationTimer = deactivationTime;
                 IsActive = true;
                 FirstActivationDone = true;
+                SwitchOff.SetActive(false);
+                SwitchOn.SetActive(true);
             }
         }
     }
