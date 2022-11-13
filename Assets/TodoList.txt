@@ -10,8 +10,9 @@ kapcsoló ki/be
 kapcsoló csak 1x nyomós
 fal ami kapcsolótól nyilik ki
 ajtó v0.01 2object, egy triggerarea és  egy "ajtó", ajtót behúzva gameobjectként a triggerareának E-t nyomva destroyolja
-v0.1 ajtóra teendő script(ha csak egy fajta van) ön parentját hívja és destroyolja
-v0.2 ajtó önmagát 1 irányba eltranzícionálja (x-el le,y idő alatt)
+v0.1 ajtóra teendő script(ha csak egy fajta van) ön parentját hívja
+BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
+
 lift
 fegyverek
 kulcs
