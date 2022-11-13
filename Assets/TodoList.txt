@@ -1,7 +1,7 @@
 ﻿Doom
 
 Itemek:
-hp töltő item sml maxon nem veszi fel
+hp töltő item s/m/l maxon nem veszi fel
 pici hp töltő amit maxon is felvesz x-ig)200)
 armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
 felszedhető armor xig
@@ -10,6 +10,8 @@ kapcsoló ki/be
 kapcsoló csak 1x nyomós
 fal ami kapcsolótól nyilik ki
 ajtó v0.01 2object, egy triggerarea és  egy "ajtó", ajtót behúzva gameobjectként a triggerareának E-t nyomva destroyolja
+v0.1 ajtóra teendő script(ha csak egy fajta van) ön parentját hívja és destroyolja
+v0.2 ajtó önmagát 1 irányba eltranzícionálja (x-el le,y idő alatt)
 lift
 fegyverek
 kulcs
