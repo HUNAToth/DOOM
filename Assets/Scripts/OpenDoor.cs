@@ -54,7 +54,6 @@ public class OpenDoor : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("TRIGGERSTAY");
         if (
             !IsActive &&
             ((TriggeredOnce && !FirstActivationDone) || !TriggeredOnce)
@@ -63,7 +62,6 @@ public class OpenDoor : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
             {
                 DoorAnim.SetTrigger("IsActivated");
-                Debug.Log("ACTIVATED");
                 deactivationTimer = deactivationTime;
                 IsActive = true;
                 FirstActivationDone = true;
