@@ -1,29 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
-{ 
+{
     private GameManager gameManager;
 
-    private void Awake(){
+    private void Awake()
+    {
         gameManager = FindObjectOfType<GameManager>();
     }
-    public void StartGame(){
+
+    public void StartGame()
+    {
         Debug.Log("doin something");
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("SampleScene");
     }
-    public void ContinueGame(){
+
+    public void ContinueGame()
+    {
         gameManager.ContinueGame();
     }
-    public void RestartLevel(){
+
+    public void RestartLevel()
+    {
         gameManager.Restart();
     }
-    public void QuitGame(){
+
+    public void QuitGame()
+    {
         Application.Quit();
     }
-    public void goToMainManu(){
+
+    public void goToMainManu()
+    {
         SceneManager.LoadScene("MainMenu");
     }
 }
