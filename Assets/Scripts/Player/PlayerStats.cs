@@ -49,6 +49,7 @@ namespace SG
             currentHealth = currentHealth + value;
             healthBar.SetCurrentHealth(currentHealth);
         }
+    
 
         public void TakeDamage(int damage){
             currentHealth = currentHealth - damage;

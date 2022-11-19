@@ -73,6 +73,16 @@ public class GunInventory : MonoBehaviour {
 
 	}
 
+	public bool CanPickupAmmoItem(int PointsRestored, string AmmoType){
+        return currentGun.GetComponent<GunScript>().bulletsIHave + PointsRestored <=  15000;
+    }
+    public void IncreaseAmmo(int PointsRestored, string AmmoType){
+          currentGun.GetComponent<GunScript>().bulletsIHave += PointsRestored;
+    }
+
+
+
+
 	/*
 	 * If used scroll mousewheel or arrows up and down the player will change weapon.
 	 * GunPlaceSpawner is child of Player gameObject, where the gun is going to spawn and transition to our

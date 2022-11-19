@@ -26,6 +26,10 @@ public class OpenDoor : MonoBehaviour
 
     public GameObject SwitchOff;
 
+    public bool isKeyRequired = false;
+
+    public bool isKeyCollected = false;
+
     void Start()
     {
     }
@@ -59,7 +63,10 @@ public class OpenDoor : MonoBehaviour
             ((TriggeredOnce && !FirstActivationDone) || !TriggeredOnce)
         )
         {
-            if (Input.GetKey(KeyCode.E))
+            if (
+                Input.GetKey(KeyCode.E) &&
+                (!isKeyRequired || (isKeyRequired && isKeyCollected))
+            )
             {
                 DoorAnim.SetTrigger("IsActivated");
                 deactivationTimer = deactivationTime;
@@ -69,5 +76,10 @@ public class OpenDoor : MonoBehaviour
                 SwitchOn.SetActive(true);
             }
         }
+    }
+
+    public void SetKeyCollected(bool keyValue)
+    {
+        isKeyCollected = keyValue;
     }
 }

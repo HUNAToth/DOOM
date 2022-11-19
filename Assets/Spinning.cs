@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Spinning : MonoBehaviour
 {
-    float x;
-    float y;
-    float z;
+    public int x = 0;
+
+    public int y = 1;
+
+    public int z = 0;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0,0.1f,0,Space.World);
+        transform.Rotate(x, y, z, Space.World);
     }
 }
