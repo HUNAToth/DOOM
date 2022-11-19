@@ -24,8 +24,10 @@ public class HealItem : MonoBehaviour
        if (other.transform.tag == "Player"){
                     GameObject player;
                     player = GameObject.Find(other.transform.gameObject.name);
-                    player.GetComponent<PlayerStats>().IncreaseHealth(PointsRestored);
-                    Destroy (gameObject);
+                    if( player.GetComponent<PlayerStats>().CanPickupHealthItem(PointsRestored)){
+                        player.GetComponent<PlayerStats>().IncreaseHealth(PointsRestored);
+                        Destroy (gameObject);
+                    }
                 }
     }
 }

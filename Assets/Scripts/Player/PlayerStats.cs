@@ -42,7 +42,9 @@ namespace SG
             maxStamina = enduranceLevel * 10;
             return maxStamina;
         }
-
+        public bool CanPickupHealthItem(int PointsRestored){
+            return currentHealth + PointsRestored <= 200;
+        }
         public void IncreaseHealth(int value){
             currentHealth = currentHealth + value;
             healthBar.SetCurrentHealth(currentHealth);
