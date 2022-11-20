@@ -2,25 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
+
 
 namespace SG
 {
     public class HealthBar : MonoBehaviour
     {
-       public TextMesh  slider;
 
-       private void Start(){
-         slider = GetComponent<TextMesh>();
-       }
+        [SerializeField] private PlayerStats playerStats;
+        [SerializeField] TextMeshProUGUI healthStat;
 
-       public void SetMaxHealth(int maxHealth){
-     //   slider.maxValue = maxHealth;
-        slider.text = maxHealth.ToString();
-       }
+        private void Start(){
+          healthStat.text = playerStats.maxHealth+"%";
+        }
 
-       public void SetCurrentHealth(int currentHealth){
-     
-        slider.text = currentHealth.ToString();
-       }
+        private void Update(){
+          healthStat.text = playerStats.currentHealth+"%";
+        }
     }
 }

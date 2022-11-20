@@ -6,9 +6,6 @@ namespace SG
 {
     public class PlayerStats : CharacterStats
     {
-        public HealthBar healthBar;
-
-        public StaminaBar staminaBar;
 
         //AnimatorHandler animatorHandler;
         private void Awake()
@@ -21,11 +18,6 @@ namespace SG
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
-            healthBar.SetMaxHealth (maxHealth);
-
-            /*   maxStamina = SetMaxStaminaFromEnduranceLevel();
-            currentStamina = maxStamina;
-            staminaBar.SetMaxStamina(maxStamina);*/
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -48,14 +40,11 @@ namespace SG
         public void IncreaseHealth(int value)
         {
             currentHealth = currentHealth + value;
-            healthBar.SetCurrentHealth (currentHealth);
         }
 
         public void TakeDamage(int damage)
         {
             currentHealth = currentHealth - damage;
-
-            healthBar.SetCurrentHealth (currentHealth);
 
             // animatorHandler.PlayTargetAnimation("Damage01",true);
             if (currentHealth <= 0)
@@ -70,7 +59,6 @@ namespace SG
         public void TakeStaminaDamage(int damage)
         {
             currentStamina = currentStamina - damage;
-            staminaBar.SetCurrentStamina (currentStamina);
         }
     }
 }

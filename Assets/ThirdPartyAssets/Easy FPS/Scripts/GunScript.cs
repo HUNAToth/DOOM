@@ -511,20 +511,9 @@ public class GunScript : MonoBehaviour {
 	 * Setting the number of bullets to the hud UI gameobject if there is one.
 	 * And drawing CrossHair from here.
 	 */
-	[Tooltip("HUD bullets to display bullet count on screen. Will be find under name 'HUD_bullets' in scene.")]
+	[Tooltip("Draw gun + on screene")]
 	public TextMesh HUD_bullets;
 	void OnGUI(){
-		if(!HUD_bullets){
-			try{
-				HUD_bullets = GameObject.Find("HUD_bullets").GetComponent<TextMesh>();
-			}
-			catch(System.Exception ex){
-				print("Couldnt find the HUD_Bullets ->" + ex.StackTrace.ToString());
-			}
-		}
-		if(mls && HUD_bullets)
-			HUD_bullets.text = bulletsIHave.ToString() + " - " + bulletsInTheGun.ToString();
-
 		DrawCrosshair();
 	}
 
