@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 740247041489105761}
   - component: {fileID: 5485381504919094288}
+  - component: {fileID: 3362908721125703352}
   m_Layer: 0
   m_Name: BarredWall
   m_TagString: Untagged
@@ -145,6 +146,19 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3942286413323035440}
   m_Enabled: 1
+--- !u!65 &3362908721125703352
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76053699177064923}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.4}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3782468958003101922
 GameObject:
   m_ObjectHideFlags: 0

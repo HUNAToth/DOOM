@@ -30,6 +30,8 @@ public class OpenDoor : MonoBehaviour
 
     public bool isKeyCollected = false;
 
+    public bool isAutoTriggered = false;
+
     void Start()
     {
     }
@@ -47,8 +49,11 @@ public class OpenDoor : MonoBehaviour
             deactivationTimer = Mathf.Infinity;
             IsActive = false;
 
-            SwitchOff.SetActive(true);
-            SwitchOn.SetActive(false);
+            if (!isAutoTriggered)
+            {
+                SwitchOff.SetActive(true);
+                SwitchOn.SetActive(false);
+            }
         }
         if (deactivationTimer >= 0)
         {
@@ -64,7 +69,7 @@ public class OpenDoor : MonoBehaviour
         )
         {
             if (
-                Input.GetKey(KeyCode.E) &&
+                (Input.GetKey(KeyCode.E) || isAutoTriggered) &&
                 (!isKeyRequired || (isKeyRequired && isKeyCollected))
             )
             {
@@ -72,8 +77,11 @@ public class OpenDoor : MonoBehaviour
                 deactivationTimer = deactivationTime;
                 IsActive = true;
                 FirstActivationDone = true;
-                SwitchOff.SetActive(false);
-                SwitchOn.SetActive(true);
+                if (!isAutoTriggered)
+                {
+                    SwitchOff.SetActive(false);
+                    SwitchOn.SetActive(true);
+                }
             }
         }
     }
