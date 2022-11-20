@@ -1,30 +1,39 @@
 ﻿Doom
 
-Itemek:
-hp töltő item s/m/l maxon nem veszi fel
+Kész:
+
 pici hp töltő amit maxon is felvesz x-ig)200)
-armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
-felszedhető armor xig
-felszedhető lőszer maxon nem veszi fel
+pici hp töltő amit maxon is felvesz x-ig)200)
+felszedhető lőszer
+lőszer  maxon nem veszi fel
 kapcsoló ki/be
 kapcsoló csak 1x nyomós
-fal ami kapcsolótól nyilik ki
 ajtó v0.01 2object, egy triggerarea és  egy "ajtó", ajtót behúzva gameobjectként a triggerareának E-t nyomva destroyolja
 v0.1 ajtóra teendő script(ha csak egy fajta van) ön parentját hívja
-BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
+menü
+kulcs
+kulccsal nyló ajtó
+use shit gomb (ajtót, kapcsolót)
+player:fegyverei vannak lőszerrel(fegyverspecifikus v nem )
+savas/lávás shites padló
+sprint
+
+
+Itemek:
+hp töltő item s/m/l maxon nem veszi fel
+
+armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
+felszedhető armor xig
+fal ami kapcsolótól nyilik ki
+
 
 lift
 fegyverek
-kulcs
-kulccsal nyló ajtó
-savas/lávás shites padló
-player:fegyverei vannak lőszerrel(fegyverspecifikus v nem )
+
+
 hpja páncélja van
 enemyk sebeznek
-use shit gomb (ajtót, kapcsolót)
-sprint
 robbanós hordó
-
 enemy: van x hpja, valamit lő vagy közel fut és közelharcban támad
 v0.01 enemy találat van, sebzés még nincs
 
@@ -34,6 +43,8 @@ x ideig tart(kijelezni)
 invisibility
 invulnerability
 
-menü
+BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
+
+
 
 UI:
