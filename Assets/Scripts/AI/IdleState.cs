@@ -2,49 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class IdleState : State
+{
+    public PursueTargetState pursueTargetState;
 
-namespace SG{
-    public class IdleState : State
-    {  
-
-    public PursueTargetState pursueTargetState;    
     public LayerMask detectionLayer;
 
+    public override State
+    Tick(
+        EnemyManager enemyManager,
+        EnemyStats enemyStats,
+        EnemyAnimatorManager enemyAnimatorManager
+    )
+    {
+        //Look for target
+        //switch to pursue state
 
+#region Handle enemy target detection
+        Collider[] colliders =
+            Physics
+                .OverlapSphere(transform.position,
+                enemyManager.detectionRadius,
+                detectionLayer);
 
-    public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager){
-            //Look for target
-            //switch to pursue state
+        for (int i = 0; i < colliders.Length; ++i)
+        {
+            CharacterStats characterStats =
+                colliders[i].transform.GetComponent<CharacterStats>();
 
-            #region Handle enemy target detection
-            Collider[] colliders = Physics.OverlapSphere(transform.position, enemyManager.detectionRadius, detectionLayer);
+            if (characterStats != null)
+            {
+                Vector3 targetDirection =
+                    characterStats.transform.position - transform.position;
+                float viewableAngle =
+                    Vector3.Angle(targetDirection, transform.forward);
 
-            for(int i = 0; i < colliders.Length; ++i){
-                CharacterStats characterStats = colliders[i].transform.GetComponent<CharacterStats>();
-
-                if(characterStats != null){
-
-                    Vector3 targetDirection = characterStats.transform.position - transform.position;
-                    float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-
-                    if(viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle){
-
-                        enemyManager.currentTarget = characterStats;
-                    }
+                if (
+                    viewableAngle > enemyManager.minimumDetectionAngle &&
+                    viewableAngle < enemyManager.maximumDetectionAngle
+                )
+                {
+                    enemyManager.currentTarget = characterStats;
                 }
             }
-            #endregion
-
-
-            #region Handle switching to next state
-            if(enemyManager.currentTarget != null){
-                return pursueTargetState;
-            }else{
-                return this;
-            }
-            #endregion
-
         }
+#endregion
+
+
+
+#region Handle switching to next state
+        if (enemyManager.currentTarget != null)
+        {
+            return pursueTargetState;
+        }
+        else
+        {
+            return this;
+        }
+#endregion
 
     }
 }

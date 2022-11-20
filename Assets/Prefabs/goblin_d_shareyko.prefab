@@ -224,6 +224,37 @@ Transform:
   m_Father: {fileID: 3852403592070778072}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &975305429543302226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7125982731037910296}
+  m_Layer: 0
+  m_Name: ProjectileEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7125982731037910296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975305429543302226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.34, z: 0.608}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9029391506830876639}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1105165983585153191
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,9 +2401,10 @@ GameObject:
   - component: {fileID: 5508784133162769029}
   - component: {fileID: 6523571099322887317}
   - component: {fileID: 5977718812212304085}
+  - component: {fileID: 5881776690293628818}
   m_Layer: 0
   m_Name: goblin_d_shareyko
-  m_TagString: Untagged
+  m_TagString: Dummie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2392,6 +2424,7 @@ Transform:
   - {fileID: 8512721126632555282}
   - {fileID: 3463049886978970880}
   - {fileID: 3539413077224800075}
+  - {fileID: 7125982731037910296}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2502,6 +2535,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3147729617228957093}
+--- !u!114 &5881776690293628818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504211240084899173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0842b8a69bc961449fea275bc546b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
+  Player: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 0
+  projectile: {fileID: 0}
+  timeBetweenAttacks: 0
+  sightRange: 0
+  attackRange: 0
+  playerIsInSightRange: 0
+  playerIsInAttackRange: 0
 --- !u!1 &8708638668491946610
 GameObject:
   m_ObjectHideFlags: 0

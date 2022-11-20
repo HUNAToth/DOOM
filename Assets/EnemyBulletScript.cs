@@ -1,7 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class EnemyBulletScript : MonoBehaviour
 {
     [Tooltip("Furthest distance bullet will look for target")]
     public float maxDistance = 1000000;
@@ -45,7 +45,7 @@ public class BulletScript : MonoBehaviour
                 ~ignoreLayer)
         )
         {
-            if (decalHitWall)
+            if (decalHitWall || true)
             {
                 if (hit.transform.tag == "LevelPart")
                 {
@@ -54,22 +54,11 @@ public class BulletScript : MonoBehaviour
                     Quaternion.LookRotation(hit.normal));
                     Destroy (gameObject);
                 }
-                if (hit.transform.tag == "Dummie")
+                if (hit.transform.tag == "Player")
                 {
-                    Instantiate(bloodEffect,
-                    hit.point,
-                    Quaternion.LookRotation(hit.normal));
-
-                    Debug
-                        .Log(hit
-                            .transform
-                            .gameObject
-                            .GetComponents(typeof (Component)));
-
-                    Debug.Log(hit.transform.gameObject.name);
-                    GameObject enemy;
-                    enemy = GameObject.Find(hit.transform.gameObject.name);
-                    enemy.GetComponentInChildren<EnemyStats>().TakeDamage(10);
+                    GameObject Player;
+                    Player = GameObject.Find(hit.transform.gameObject.name);
+                    Player.GetComponent<PlayerStats>().TakeDamage(10);
 
                     // Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(hit));
                     /*   hit
@@ -81,8 +70,8 @@ public class BulletScript : MonoBehaviour
                     Destroy (gameObject);
                 }
             }
-            Destroy (gameObject);
+            //Destroy (gameObject);
         }
-        Destroy(gameObject, 0.1f);
+        // Destroy(gameObject, 0.1f);
     }
 }

@@ -1,25 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-
-
-namespace SG
+public class HealthBar : MonoBehaviour
 {
-    public class HealthBar : MonoBehaviour
+    [SerializeField]
+    private PlayerStats playerStats;
+
+    [SerializeField]
+    TextMeshProUGUI healthStat;
+
+    private void Start()
     {
+        healthStat.text = playerStats.maxHealth + "%";
+    }
 
-        [SerializeField] private PlayerStats playerStats;
-        [SerializeField] TextMeshProUGUI healthStat;
-
-        private void Start(){
-          healthStat.text = playerStats.maxHealth+"%";
-        }
-
-        private void Update(){
-          healthStat.text = playerStats.currentHealth+"%";
-        }
+    private void Update()
+    {
+        healthStat.text = playerStats.currentHealth + "%";
     }
 }

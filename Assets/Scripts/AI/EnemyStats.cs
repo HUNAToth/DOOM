@@ -36,8 +36,8 @@ public class EnemyStats : CharacterStats
             {
                 currentHealth = 0;
                 animator.Play("Death01");
+
                 //TODO deative during animation
-                //this.gameObject.SetActive(false);
             }
         }
     }

@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SG{
-    public class DynamicLightHandler : MonoBehaviour {
+public class DynamicLightHandler : MonoBehaviour
+{
+    public GameObject Sun;
 
-        public GameObject Sun;
-        public GameObject WindScreen;
+    public GameObject WindScreen;
 
-        public string LightColorChangeFlag;
+    public string LightColorChangeFlag;
 
-        public float rotationSpeedX;
-        public float rotationSpeedy;
-        public float rotationSpeedz;
+    public float rotationSpeedX;
 
-        void Start(){
-             Sun = GameObject.Find("Sun");
-        }
-        void Update(){
-       /*    Sun.transform.Rotate (rotationSpeedX,rotationSpeedy,rotationSpeedz,Space.World);
+    public float rotationSpeedy;
+
+    public float rotationSpeedz;
+
+    void Start()
+    {
+        Sun = GameObject.Find("Sun");
+    }
+
+    void Update()
+    {
+        /*    Sun.transform.Rotate (rotationSpeedX,rotationSpeedy,rotationSpeedz,Space.World);
            if(
                Sun.transform.localRotation.eulerAngles.x>0.0f&&
                 Sun.transform.localRotation.eulerAngles.x<180.0f
@@ -43,23 +48,23 @@ namespace SG{
                 }
 
         }*/
-        }
+    }
 
+    public void MakeStorm()
+    {
+        Debug.Log("MAKESTORM");
+        WindScreen.GetComponent<WindZone>().windMain = 5.0f;
+        WindScreen.GetComponent<WindZone>().windTurbulence = 10.0f;
+        WindScreen.GetComponent<WindZone>().windPulseFrequency = 1.0f;
+        WindScreen.GetComponent<WindZone>().windPulseMagnitude = 10.0f;
+    }
 
-       public void MakeStorm(){
-            Debug.Log("MAKESTORM");
-            WindScreen.GetComponent<WindZone>().windMain = 5.0f;
-            WindScreen.GetComponent<WindZone>().windTurbulence = 10.0f;
-            WindScreen.GetComponent<WindZone>().windPulseFrequency = 1.0f;
-            WindScreen.GetComponent<WindZone>().windPulseMagnitude = 10.0f;
-        }
-       public void EndStorm(){
-            Debug.Log("ENDSTORM");
-            WindScreen.GetComponent<WindZone>().windMain = 0.15f;
-            WindScreen.GetComponent<WindZone>().windTurbulence = 0.4f;
-            WindScreen.GetComponent<WindZone>().windPulseFrequency = 0.5f;
-            WindScreen.GetComponent<WindZone>().windPulseMagnitude = 1.0f;
-        }
-
+    public void EndStorm()
+    {
+        Debug.Log("ENDSTORM");
+        WindScreen.GetComponent<WindZone>().windMain = 0.15f;
+        WindScreen.GetComponent<WindZone>().windTurbulence = 0.4f;
+        WindScreen.GetComponent<WindZone>().windPulseFrequency = 0.5f;
+        WindScreen.GetComponent<WindZone>().windPulseMagnitude = 1.0f;
     }
 }
