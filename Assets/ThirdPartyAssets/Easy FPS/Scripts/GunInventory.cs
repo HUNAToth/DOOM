@@ -74,7 +74,7 @@ public class GunInventory : MonoBehaviour {
 	}
 
 	public bool CanPickupAmmoItem(int PointsRestored, string AmmoType){
-        return currentGun.GetComponent<GunScript>().bulletsIHave + PointsRestored <=  15000;
+        return currentGun.GetComponent<GunScript>().bulletsIHave + PointsRestored <= 200;
     }
     public void IncreaseAmmo(int PointsRestored, string AmmoType){
           currentGun.GetComponent<GunScript>().bulletsIHave += PointsRestored;

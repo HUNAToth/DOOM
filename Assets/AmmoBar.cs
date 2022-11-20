@@ -16,8 +16,13 @@ namespace SG
         private GunScript gunScript;
 
         private void Update(){
-            gunScript = gunInventory.currentGun.GetComponent<GunScript>();
-            ammoStat.text = gunScript.bulletsIHave.ToString() + "/" + gunScript.bulletsInTheGun.ToString();
+            if(gunInventory.currentGun!=null){
+                gunScript = gunInventory.currentGun.GetComponent<GunScript>();
+
+                ammoStat.text = gunScript.bulletsIHave.ToString() + "/" + gunScript.bulletsInTheGun.ToString();
+            }else{
+                ammoStat.text = "/";
+            }
         }
     }
 }
