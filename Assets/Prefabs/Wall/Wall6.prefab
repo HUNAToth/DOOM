@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4993020821713148002}
   m_Layer: 0
   m_Name: Wall6
-  m_TagString: Untagged
+  m_TagString: LevelPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
