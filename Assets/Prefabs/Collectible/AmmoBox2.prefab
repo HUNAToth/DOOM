@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 364373513777863985}
   - component: {fileID: 364373513777863990}
   m_Layer: 0
-  m_Name: AmmoBox
+  m_Name: AmmoBox2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5776052887422243287}
-  - {fileID: 3485565785131614237}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c25e7464d838af419efaafd894dde6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointsRestored: 10
+  PointsRestored: 20
   AmmoType: normal
 --- !u!114 &364373513777863990
 MonoBehaviour:
@@ -130,7 +129,7 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
---- !u!1 &2729833056613904226
+--- !u!1 &8986558529206807736
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,44 +137,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3485565785131614237}
-  - component: {fileID: 8599103859389954769}
+  - component: {fileID: 7982590778236480353}
+  - component: {fileID: 2683443785146920148}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: Point Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3485565785131614237
+--- !u!4 &7982590778236480353
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729833056613904226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.587, z: 0}
+  m_GameObject: {fileID: 8986558529206807736}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.020988435, y: 0.537, z: -0.006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 364373513777863989}
-  m_RootOrder: 1
+  m_Father: {fileID: 5776052887422243287}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &8599103859389954769
+--- !u!108 &2683443785146920148
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729833056613904226}
+  m_GameObject: {fileID: 8986558529206807736}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.4666667, g: 0.53333336, b: 0.37647063, a: 1}
-  m_Intensity: 3
-  m_Range: 4
+  m_Color: {r: 0.43921572, g: 0.28627452, b: 0.3803922, a: 1}
+  m_Intensity: 5
+  m_Range: 3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -211,9 +210,9 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -231,6 +230,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 364373513777863989}
     m_Modifications:
+    - target: {fileID: -8900275330421639339, guid: 0f78bfbf1cf1ac14bbf0829526cea81f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13f9b53311f69f24587f76cb0d55540d, type: 2}
     - target: {fileID: -8679921383154817045, guid: 0f78bfbf1cf1ac14bbf0829526cea81f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -275,6 +278,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6039638068566324712, guid: 0f78bfbf1cf1ac14bbf0829526cea81f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13f9b53311f69f24587f76cb0d55540d, type: 2}
+    - target: {fileID: -3811425521292420486, guid: 0f78bfbf1cf1ac14bbf0829526cea81f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 13f9b53311f69f24587f76cb0d55540d, type: 2}
     - target: {fileID: 919132149155446097, guid: 0f78bfbf1cf1ac14bbf0829526cea81f, type: 3}
       propertyPath: m_Name
       value: Ammo
