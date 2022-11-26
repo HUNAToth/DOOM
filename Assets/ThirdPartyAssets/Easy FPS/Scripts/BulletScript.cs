@@ -69,7 +69,7 @@ public class BulletScript : MonoBehaviour
                     Debug.Log(hit.transform.gameObject.name);
                     GameObject enemy;
                     enemy = GameObject.Find(hit.transform.gameObject.name);
-                    enemy.GetComponentInChildren<EnemyStats>().TakeDamage(10);
+                    enemy.GetComponentInChildren<EnemyStats>().TakeDamage(25);
 
                     // Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(hit));
                     /*   hit

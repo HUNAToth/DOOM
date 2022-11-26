@@ -76,7 +76,7 @@ public class EnemyAI : MonoBehaviour
         {
             SearchWalkPoint();
         }
-        if (!walkPointSet)
+        if (walkPointSet)
         {
             navMeshAgent.SetDestination (walkPoint);
         }
