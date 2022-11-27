@@ -241,8 +241,8 @@ MonoBehaviour:
   been_to_meele_anim: 0
   bloodEffect: {fileID: 1013274939826982, guid: ffbf169ab9dcfdc45ae14010bc82a6b2, type: 3}
   _jumpSound: {fileID: 82190838427811640}
-  _damageSound: {fileID: 0}
-  _deathSound: {fileID: 0}
+  _damageSound: {fileID: 4234426026190424664}
+  _deathSound: {fileID: 2473237487914478106}
   _freakingZombiesSound: {fileID: 82072754584320168}
   _hitSound: {fileID: 82102465769777700}
   _walkSound: {fileID: 82248981901151284}
@@ -327,7 +327,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173116}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dcfbc9e424f294044a3c1b117a3f4656, type: 3}
@@ -1629,8 +1629,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75d60a166447faa46bf42c51130b71e3, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 4ca9e02e75d145d439a9d2d534fa92e2, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1757,8 +1757,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4ca9e02e75d145d439a9d2d534fa92e2, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 75d60a166447faa46bf42c51130b71e3, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

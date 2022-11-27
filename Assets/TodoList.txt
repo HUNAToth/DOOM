@@ -51,6 +51,8 @@ gameover kezelése: movement tiltás, canvason szöveg, retry /quit gomb
 
 load/save - adott pálya elejétől ----------> játék során bármikor
 
+teleport xyz kordinátára
+
 BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
 
 

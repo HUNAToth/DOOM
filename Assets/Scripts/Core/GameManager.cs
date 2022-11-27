@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     private bool isPause;
 
+    private bool isLevelComplete = false;
+
     private void Awake()
     {
         gameCanvas = GameObject.Find("Canvas");
@@ -40,6 +42,11 @@ public class GameManager : MonoBehaviour
     public bool getIsPause()
     {
         return isPause;
+    }
+
+    public void setIsLevelComplete(bool _isLevelComplete)
+    {
+        isLevelComplete = _isLevelComplete;
     }
 
     private void Update()
@@ -119,16 +126,20 @@ public class GameManager : MonoBehaviour
 
     public void CompleteLevel()
     {
+        Debug.Log("CompleteLevel");
         if (
             SceneManager.sceneCountInBuildSettings - 1 ==
             SceneManager.GetActiveScene().buildIndex
         )
         {
             completeAllLevelUI.SetActive(true);
+            SceneManager.LoadScene(0);
         }
         else
         {
             completeLevelUI.SetActive(true);
+            SceneManager
+                .LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
