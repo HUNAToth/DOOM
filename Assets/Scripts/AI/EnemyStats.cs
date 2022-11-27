@@ -29,15 +29,20 @@ public class EnemyStats : CharacterStats
         if (currentHealth > 0)
         {
             currentHealth = currentHealth - damage;
-
-            animator.Play("Damage01");
+            EnemySoundScript soundScript =
+                this.gameObject.GetComponent<EnemySoundScript>();
 
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 animator.Play("Death01");
-
+                soundScript.PlayDieSound();
                 //TODO deative during animation
+            }
+            else
+            {
+                soundScript.PlayDamageSound();
+                animator.Play("Damage01");
             }
         }
     }
