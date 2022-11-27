@@ -21,16 +21,28 @@ public class MouseLookScript : MonoBehaviour
 	*/
     void Update()
     {
-        MouseInputMovement();
-
-        if (Input.GetKeyDown(KeyCode.L))
+        if (
+            GameObject
+                .Find("GameManager")
+                .GetComponent<GameManager>()
+                .getIsPause()
+        )
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
         }
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        else
+        {
+            MouseInputMovement();
 
-        if (GetComponent<PlayerMovementScript>().currentSpeed > 1)
-            HeadMovement();
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+
+            if (GetComponent<PlayerMovementScript>().currentSpeed > 1)
+                HeadMovement();
+        }
     }
 
     [Header("Z Rotation Camera")]

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private GameObject gameCanvas;
+
     [SerializeField]
     public GameObject completeLevelUI;
 
@@ -27,8 +29,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        gameCanvas = GameObject.Find("Canvas");
+
         Time.timeScale = 1;
         isPause = false;
+    }
+
+    public bool getIsPause()
+    {
+        return isPause;
     }
 
     private void Update()
@@ -51,14 +60,43 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
-        //  SceneManager.LoadScene("GameMenu", LoadSceneMode.Additive);
+        disablePlayerScript();
+        SceneManager.LoadScene("GameMenu", LoadSceneMode.Additive);
         mainMenuTimer = 0;
         isPause = true;
     }
 
+    public void disablePlayerScript()
+    {
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<GunInventory>().enabled = false;
+        player
+            .GetComponent<GunInventory>()
+            .currentGun
+            .GetComponent<GunScript>()
+            .enabled = false;
+        gameCanvas.SetActive(false);
+    }
+
+    public void enablePlayerScript()
+    {
+        GameObject player = GameObject.Find("Player");
+        GameObject uiCanvas = GameObject.Find("Canvas");
+        player.GetComponent<GunInventory>().enabled = true;
+        player
+            .GetComponent<GunInventory>()
+            .currentGun
+            .GetComponent<GunScript>()
+            .enabled = true;
+        uiCanvas.SetActive(false);
+        gameCanvas.SetActive(true);
+    }
+
     public void ContinueGame()
     {
-        //  SceneManager.UnloadSceneAsync("GameMenu");
+        SceneManager.UnloadSceneAsync("GameMenu");
+
+        enablePlayerScript();
         Time.timeScale = 1;
         mainMenuTimer = 0;
         isPause = false;

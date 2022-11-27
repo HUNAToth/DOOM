@@ -501,6 +501,22 @@ public class PlayerMovementScript : MonoBehaviour
     [Tooltip("Jump sound when player jumps.")]
     public AudioSource _jumpSound;
 
+    [Tooltip("Sound when player gets hit.")]
+    public AudioSource _damageSound;
+
+    public void PlayDamageSound()
+    {
+        _damageSound.Play();
+    }
+
+    [Tooltip("Sound when player dies.")]
+    public AudioSource _deathSound;
+
+    public void PlayDieSound()
+    {
+        _deathSound.Play();
+    }
+
     [Tooltip("Sound while player makes when successfully reloads weapon.")]
     public AudioSource _freakingZombiesSound;
 

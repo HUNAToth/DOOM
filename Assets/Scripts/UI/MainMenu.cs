@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("doin something");
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Level_1");
     }
 
     public void ContinueGame()
