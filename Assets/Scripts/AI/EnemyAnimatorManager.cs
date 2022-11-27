@@ -20,12 +20,16 @@ public class EnemyAnimatorManager : AnimatorManager
             !GameObject
                 .Find("GameManager")
                 .GetComponent<GameManager>()
-                .getIsPause()
+                .getIsPause() &&
+            !GameObject
+                .Find("GameManager")
+                .GetComponent<GameManager>()
+                .isGameOver
         )
         {
             if (delta != 0)
             {
-                SelfAI.enabled = false;
+                SelfAI.enabled = true;
                 enemyManager.enemyRigidbody.drag = 0;
                 Vector3 deltaPosition = anim.deltaPosition;
                 deltaPosition.y = 0;
@@ -35,7 +39,7 @@ public class EnemyAnimatorManager : AnimatorManager
         }
         else
         {
-            SelfAI.enabled = true;
+            SelfAI.enabled = false;
         }
     }
 }

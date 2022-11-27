@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = true;
             gameOverUI.SetActive(true);
+            //Restart();
         }
     }
 
