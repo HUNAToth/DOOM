@@ -13,6 +13,14 @@ public class EnemySoundScript : MonoBehaviour
         _damageSound.Play();
     }
 
+    [Tooltip("Sound when enemy attacks.")]
+    public AudioSource _attackSound;
+
+    public void PlayAttackSound()
+    {
+        _attackSound.Play();
+    }
+
     [Tooltip("Sound when enemy dies.")]
     public AudioSource _deathSound;
 

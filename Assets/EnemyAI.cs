@@ -122,6 +122,10 @@ public class EnemyAI : MonoBehaviour
                 Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
 
+            EnemySoundScript soundScript =
+                this.gameObject.GetComponent<EnemySoundScript>();
+            soundScript.PlayAttackSound();
+
             //  rb.AddForce(transform.up * 0.8f, ForceMode.Impulse);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
