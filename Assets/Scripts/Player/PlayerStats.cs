@@ -44,12 +44,16 @@ public class PlayerStats : CharacterStats
         currentHealth = currentHealth - damage;
 
         // animatorHandler.PlayTargetAnimation("Damage01",true);
-        if (currentHealth <= 0)
+        if (currentHealth <= 100)
         {
             currentHealth = 0;
 
             //animatorHandler.PlayTargetAnimation("Death01",true);
             //handle death
+            var gameManager =
+                GameObject.Find("GameManager").GetComponent<GameManager>();
+            Debug.Log (gameManager);
+            gameManager.GameOver();
         }
     }
 

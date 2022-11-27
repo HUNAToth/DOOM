@@ -43,6 +43,14 @@ x ideig tart(kijelezni)
 invisibility
 invulnerability
 
+sérülés és halálhangok enemyn és playeren is
+item felvétel hangok
+felvehető item(absztrakció) ->van audio sourceja és közös értékek
+enemy ai scriptet letiltani enemy halálkor
+gameover kezelése: movement tiltás, canvason szöveg, retry /quit gomb
+
+load/save - adott pálya elejétől ----------> játék során bármikor
+
 BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
 
 
