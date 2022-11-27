@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver = false;
 
-    public float restartDelay = 1f;
+    public float restartDelay = 5f;
+
+    private float restartTimer = 5f;
 
     private float mainMenuTimer = Mathf.Infinity;
 
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         gameCanvas = GameObject.Find("Canvas");
-
+        restartTimer = restartDelay;
         Time.timeScale = 1;
         isPause = false;
     }
@@ -54,6 +56,15 @@ public class GameManager : MonoBehaviour
             }
         }
         mainMenuTimer += Time.deltaTime;
+        if (isGameOver == true)
+        {
+            if (restartTimer <= 0)
+            {
+                Restart();
+                restartTimer = restartDelay;
+            }
+            restartTimer -= Time.deltaTime;
+        }
     }
 
     public void PauseGame()
@@ -95,7 +106,6 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         SceneManager.UnloadSceneAsync("GameMenu");
-
         enablePlayerScript();
         Time.timeScale = 1;
         mainMenuTimer = 0;
@@ -128,7 +138,6 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = true;
             gameOverUI.SetActive(true);
-            //Restart();
         }
     }
 

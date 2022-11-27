@@ -60,13 +60,13 @@ public class BulletScript : MonoBehaviour
                     hit.point,
                     Quaternion.LookRotation(hit.normal));
 
-                    Debug
+                    /*Debug
                         .Log(hit
                             .transform
                             .gameObject
                             .GetComponents(typeof (Component)));
 
-                    Debug.Log(hit.transform.gameObject.name);
+                    Debug.Log(hit.transform.gameObject.name);*/
                     GameObject enemy;
                     enemy = GameObject.Find(hit.transform.gameObject.name);
                     enemy.GetComponentInChildren<EnemyStats>().TakeDamage(25);
