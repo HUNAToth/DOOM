@@ -5,9 +5,13 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    private EnemyStats enemyStats;
+
+    private EnemyAnimatorManager enemyAnimatorManager;
+
     public NavMeshAgent navMeshAgent;
 
-    public Transform Player;
+    private Transform Player;
 
     public LayerMask
 
@@ -15,55 +19,32 @@ public class EnemyAI : MonoBehaviour
             whatIsPlayer;
 
     //Patrolling
-    public Vector3 walkPoint;
+    private Vector3 destinationPoint;
 
-    bool walkPointSet;
-
-    public float walkPointRange;
+    bool isDestinationSet;
 
     //Attacking
     public GameObject projectile;
 
-    public float timeBetweenAttacks;
-
     bool alreadyAttacked;
 
-    bool isStoppedByInteraction;
-
-    public float stopInteractionDuration;
-
-    public float stopInteractionTimer;
-
     //States
-    public float
-
-            sightRange,
-            attackRange;
-
-    public bool
+    protected bool
 
             playerIsInSightRange,
             playerIsInAttackRange;
-
-    public void SetIsStoppedByInteraction(bool newValue)
-    {
-        isStoppedByInteraction = newValue;
-    }
-
-    public bool GetIsStoppedByInteraction()
-    {
-        return isStoppedByInteraction;
-    }
 
     void Awake()
     {
         Player = GameObject.Find("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
+        enemyStats = GetComponent<EnemyStats>();
+        enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
     }
 
     void Update()
     {
-        if (isStoppedByInteraction)
+        /* if (isStoppedByInteraction)
         {
             stopInteractionTimer -= Time.deltaTime;
             if (stopInteractionTimer < 0)
@@ -73,74 +54,79 @@ public class EnemyAI : MonoBehaviour
             }
         }
         else
-        {
-            //Look for player
-            playerIsInSightRange =
-                Physics
-                    .CheckSphere(transform.position, sightRange, whatIsPlayer);
-            playerIsInAttackRange =
-                Physics
-                    .CheckSphere(transform.position, attackRange, whatIsPlayer);
+        {*/
+        //Look for player
+        playerIsInSightRange =
+            Physics
+                .CheckSphere(transform.position,
+                enemyStats.sightRange,
+                whatIsPlayer);
+        playerIsInAttackRange =
+            Physics
+                .CheckSphere(transform.position,
+                enemyStats.attackRange,
+                whatIsPlayer);
 
-            if (GetComponent<EnemyStats>().currentHealth > 0)
+        if (enemyStats.GetCurrentHealth() > 0)
+        {
+            if (!playerIsInSightRange && !playerIsInAttackRange)
             {
-                if (!playerIsInSightRange && !playerIsInAttackRange)
-                {
-                    Patrolling();
-                }
-                else if (playerIsInSightRange && !playerIsInAttackRange)
-                {
-                    ChasePlayer();
-                }
-                else if (playerIsInSightRange && playerIsInAttackRange)
-                {
-                    AttackPlayer();
-                }
+                Patrolling();
+            }
+            else if (playerIsInSightRange && !playerIsInAttackRange)
+            {
+                ChasePlayer();
+            }
+            else if (playerIsInSightRange && playerIsInAttackRange)
+            {
+                AttackPlayer();
             }
         }
+        //}
     }
 
     private void Patrolling()
     {
-        if (!walkPointSet)
+        enemyAnimatorManager.PlayWalk();
+        if (!isDestinationSet)
         {
-            SearchWalkPoint();
+            SearchDestinationPoint();
         }
-        if (walkPointSet)
+        if (isDestinationSet)
         {
-            navMeshAgent.SetDestination (walkPoint);
-            var enemyanimatormanager = GetComponent<EnemyAnimatorManager>();
-            enemyanimatormanager.PlayTargetAnimation("Character_Walk", false);
+            navMeshAgent.SetDestination (destinationPoint);
         }
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        if (distanceToWalkPoint.magnitude < 2f)
+        Vector3 distanceTodestinationPoint =
+            transform.position - destinationPoint;
+        if (distanceTodestinationPoint.magnitude < 2f)
         {
-            walkPointSet = false;
+            isDestinationSet = false;
         }
     }
 
-    private void SearchWalkPoint()
+    private void SearchDestinationPoint()
     {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        float randomZ =
+            Random.Range(-enemyStats.patrolRange, enemyStats.patrolRange);
+        float randomX =
+            Random.Range(-enemyStats.patrolRange, enemyStats.patrolRange);
 
-        walkPoint =
+        destinationPoint =
             new Vector3(transform.position.x + randomX,
                 transform.position.y,
                 transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        if (Physics.Raycast(destinationPoint, -transform.up, 2f, whatIsGround))
         {
-            walkPointSet = true;
+            isDestinationSet = true;
         }
     }
 
     private void ChasePlayer()
     {
         navMeshAgent.SetDestination(Player.position);
-        var enemyanimatormanager = GetComponent<EnemyAnimatorManager>();
-        enemyanimatormanager.PlayTargetAnimation("Character_Walk", false);
+        enemyAnimatorManager.PlayWalk();
     }
 
     private void AttackPlayer()
@@ -150,11 +136,23 @@ public class EnemyAI : MonoBehaviour
         //   transform.LookAt(new Vector3(Player.position.x, 0f, Player.position.y));
         if (!alreadyAttacked)
         {
-            Rigidbody rb =
-                Instantiate(projectile,
-                transform.Find("ProjectileEmitter").transform.position,
-                Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+            if (enemyStats.EnemyType == "Ranged")
+            {
+                Rigidbody rb =
+                    Instantiate(projectile,
+                    transform.Find("ProjectileEmitter").transform.position,
+                    Quaternion.identity).GetComponent<Rigidbody>();
+                rb.AddForce(transform.forward * 1f, ForceMode.Impulse);
+            }
+            else if (enemyStats.EnemyType == "Melee")
+            {
+                //spherrel megnézni playert, őt sebezni x-el
+                GameObject Player;
+                Player = GameObject.Find("Player");
+                Player
+                    .GetComponent<PlayerStats>()
+                    .TakeDamage(enemyStats.attackDamage);
+            }
 
             EnemySoundScript soundScript =
                 this.gameObject.GetComponent<EnemySoundScript>();
@@ -162,10 +160,8 @@ public class EnemyAI : MonoBehaviour
 
             //  rb.AddForce(transform.up * 0.8f, ForceMode.Impulse);
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-            var enemyanimatormanager = GetComponent<EnemyAnimatorManager>();
-            enemyanimatormanager.PlayTargetAnimation("Attack", true);
-            SetIsStoppedByInteraction(true);
+            Invoke(nameof(ResetAttack), enemyStats.attackCooldown);
+            enemyAnimatorManager.PlayAttack();
         }
     }
 
@@ -174,11 +170,11 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    private void OnDrawGizmosSelected()
+    /*   private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, enemyStats.attackRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-    }
+        Gizmos.DrawWireSphere(transform.position, enemyStats.sightRange);
+    }*/
 }

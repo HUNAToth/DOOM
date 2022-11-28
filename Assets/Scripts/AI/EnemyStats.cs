@@ -4,11 +4,32 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    Animator animator;
+    EnemyAnimatorManager enemyAnimatorManager;
+
+    [SerializeField]
+    public int attackDamage = 10;
+
+    [SerializeField]
+    public float attackCooldown = 3f;
+
+    [SerializeField]
+    public float movementSpeed = 3f;
+
+    [SerializeField]
+    public float sightRange = 10f;
+
+    [SerializeField]
+    public float patrolRange = 5f;
+
+    [SerializeField]
+    public float attackRange = 1.5f;
+
+    [SerializeField]
+    public string EnemyType = "Melee";
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
     }
 
     // Start is called before the first frame update
@@ -28,24 +49,17 @@ public class EnemyStats : CharacterStats
     {
         if (currentHealth > 0)
         {
+            //todo enemyarmor
             currentHealth = currentHealth - damage;
-            EnemySoundScript soundScript =
-                this.gameObject.GetComponent<EnemySoundScript>();
-
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                animator.Play("Death01");
-                soundScript.PlayDieSound();
-                //TODO deative during animation
+                enemyAnimatorManager.PlayDeath();
+                //TODO deative enemy ai during animation
             }
             else
             {
-                soundScript.PlayDamageSound();
-                animator.Play("Damage01");
-
-                EnemyAI enemyAI = GetComponent<EnemyAI>();
-                enemyAI.SetIsStoppedByInteraction(true);
+                enemyAnimatorManager.PlayDamage();
             }
         }
     }

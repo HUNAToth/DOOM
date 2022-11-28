@@ -24,7 +24,7 @@ public class EnemySoundScript : MonoBehaviour
     [Tooltip("Sound when enemy dies.")]
     public AudioSource _deathSound;
 
-    public void PlayDieSound()
+    public void PlayDeathSound()
     {
         _deathSound.Play();
     }

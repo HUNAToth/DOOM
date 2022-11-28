@@ -4,21 +4,47 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    [SerializeField]
     public int healthLevel = 10;
 
-    public int maxHealth;
+    protected int maxHealth;
 
-    public int currentHealth;
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
 
-    public int enduranceLevel = 10;
+    protected int currentHealth;
 
-    public int maxStamina;
+    public void SetCurrentHealth(int newCurrent)
+    {
+        currentHealth = newCurrent;
+    }
 
-    public int currentStamina;
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
 
+    [SerializeField]
     public int armorLevel = 10;
 
-    public int maxArmor;
+    protected int maxArmor;
 
-    public int currentArmor;
+    public int GetMaxArmor()
+    {
+        return maxArmor;
+    }
+
+    protected int currentArmor;
+
+    public void SetCurrentArmor(int newCurrent)
+    {
+        currentArmor = newCurrent;
+    }
+
+    public int GetCurrentArmor()
+    {
+        return currentArmor;
+    }
 }

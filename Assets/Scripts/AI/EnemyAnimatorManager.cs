@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class EnemyAnimatorManager : AnimatorManager
 {
-    EnemyManager enemyManager;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        enemyManager = GetComponent<EnemyManager>();
+        soundScript = GetComponent<EnemySoundScript>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnAnimatorMove()
     {
         float delta = Time.deltaTime;
         EnemyAI SelfAI = GetComponent<EnemyAI>();
+
         if (
             !GameObject
                 .Find("GameManager")
@@ -30,11 +30,12 @@ public class EnemyAnimatorManager : AnimatorManager
             if (delta != 0)
             {
                 SelfAI.enabled = true;
-                enemyManager.enemyRigidbody.drag = 0;
+                rb.drag = 0;
+
                 Vector3 deltaPosition = anim.deltaPosition;
                 deltaPosition.y = 0;
                 Vector3 velocity = deltaPosition / delta;
-                enemyManager.enemyRigidbody.velocity = velocity;
+                rb.velocity = velocity;
             }
         }
         else

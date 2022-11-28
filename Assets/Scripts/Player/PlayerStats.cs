@@ -23,12 +23,6 @@ public class PlayerStats : CharacterStats
         return 100; //maxHealth;
     }
 
-    private int SetMaxStaminaFromEnduranceLevel()
-    {
-        maxStamina = enduranceLevel * 10;
-        return maxStamina;
-    }
-
     public bool CanPickupHealthItem(int PointsRestored)
     {
         return currentHealth + PointsRestored <= 200;
@@ -97,10 +91,5 @@ public class PlayerStats : CharacterStats
                 .GetComponent<PlayerMovementScript>()
                 .PlayDamageSound();
         }
-    }
-
-    public void TakeStaminaDamage(int damage)
-    {
-        currentStamina = currentStamina - damage;
     }
 }

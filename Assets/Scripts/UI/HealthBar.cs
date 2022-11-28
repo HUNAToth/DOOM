@@ -14,11 +14,11 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        healthStat.text = playerStats.maxHealth + "%";
+        healthStat.text = playerStats.GetMaxHealth() + "%";
     }
 
     private void Update()
     {
-        healthStat.text = playerStats.currentHealth + "%";
+        healthStat.text = playerStats.GetCurrentHealth() + "%";
     }
 }

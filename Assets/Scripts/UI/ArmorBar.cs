@@ -14,11 +14,11 @@ public class ArmorBar : MonoBehaviour
 
     private void Start()
     {
-        armorStat.text = playerStats.maxArmor + "%";
+        armorStat.text = playerStats.GetMaxArmor() + "%";
     }
 
     private void Update()
     {
-        armorStat.text = playerStats.currentArmor + "%";
+        armorStat.text = playerStats.GetCurrentArmor() + "%";
     }
 }
