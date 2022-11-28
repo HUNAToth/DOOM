@@ -28,8 +28,10 @@ armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatokt�
 
 UI:
 armor,
+kulcs ha többféle van,
 
-
+gameover kezelése: movement tiltás, canvason szöveg,
+---------------------------------------------------------------------------------------
 
 
 
@@ -44,7 +46,7 @@ fal ami kapcsolótól nyilik ki
 
 
 lift
-fegyverek
+fegyverek kezelése, 1-2 új
 
 robbanós hordó
 
@@ -61,7 +63,7 @@ invisibility
 invulnerability
 
 
-gameover kezelése: movement tiltás, canvason szöveg, retry /quit gomb
+gameover kezelése: retry /quit gomb
 
 load/save - adott pálya elejétől ----------> játék során bármikor
 
@@ -69,8 +71,4 @@ teleport xyz kordinátára
 
 BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
 
-
-
-UI
- kulcs ha többféle van,
 

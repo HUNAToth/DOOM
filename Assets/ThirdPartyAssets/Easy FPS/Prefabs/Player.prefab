@@ -320,6 +320,9 @@ MonoBehaviour:
   enduranceLevel: 10
   maxStamina: 0
   currentStamina: 0
+  armorLevel: 10
+  maxArmor: 0
+  currentArmor: 0
 --- !u!82 &3922693823910048442
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1629,7 +1632,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4ca9e02e75d145d439a9d2d534fa92e2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0a0c3debb4310fa42ac329a72fd70e65, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

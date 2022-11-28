@@ -28,6 +28,12 @@ public class EnemyAI : MonoBehaviour
 
     bool alreadyAttacked;
 
+    bool isStoppedByInteraction;
+
+    public float stopInteractionDuration;
+
+    public float stopInteractionTimer;
+
     //States
     public float
 
@@ -39,6 +45,16 @@ public class EnemyAI : MonoBehaviour
             playerIsInSightRange,
             playerIsInAttackRange;
 
+    public void SetIsStoppedByInteraction(bool newValue)
+    {
+        isStoppedByInteraction = newValue;
+    }
+
+    public bool GetIsStoppedByInteraction()
+    {
+        return isStoppedByInteraction;
+    }
+
     void Awake()
     {
         Player = GameObject.Find("Player").transform;
@@ -47,25 +63,39 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        //Look for player
-        playerIsInSightRange =
-            Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerIsInAttackRange =
-            Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (GetComponent<EnemyStats>().currentHealth > 0)
+        if (isStoppedByInteraction)
         {
-            if (!playerIsInSightRange && !playerIsInAttackRange)
+            stopInteractionTimer -= Time.deltaTime;
+            if (stopInteractionTimer < 0)
             {
-                Patrolling();
+                stopInteractionTimer = 0;
+                isStoppedByInteraction = false;
             }
-            else if (playerIsInSightRange && !playerIsInAttackRange)
+        }
+        else
+        {
+            //Look for player
+            playerIsInSightRange =
+                Physics
+                    .CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerIsInAttackRange =
+                Physics
+                    .CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+            if (GetComponent<EnemyStats>().currentHealth > 0)
             {
-                ChasePlayer();
-            }
-            else if (playerIsInSightRange && playerIsInAttackRange)
-            {
-                AttackPlayer();
+                if (!playerIsInSightRange && !playerIsInAttackRange)
+                {
+                    Patrolling();
+                }
+                else if (playerIsInSightRange && !playerIsInAttackRange)
+                {
+                    ChasePlayer();
+                }
+                else if (playerIsInSightRange && playerIsInAttackRange)
+                {
+                    AttackPlayer();
+                }
             }
         }
     }
@@ -79,6 +109,8 @@ public class EnemyAI : MonoBehaviour
         if (walkPointSet)
         {
             navMeshAgent.SetDestination (walkPoint);
+            var enemyanimatormanager = GetComponent<EnemyAnimatorManager>();
+            enemyanimatormanager.PlayTargetAnimation("Character_Walk", false);
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -107,6 +139,8 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         navMeshAgent.SetDestination(Player.position);
+        var enemyanimatormanager = GetComponent<EnemyAnimatorManager>();
+        enemyanimatormanager.PlayTargetAnimation("Character_Walk", false);
     }
 
     private void AttackPlayer()
@@ -129,6 +163,9 @@ public class EnemyAI : MonoBehaviour
             //  rb.AddForce(transform.up * 0.8f, ForceMode.Impulse);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            var enemyanimatormanager = GetComponent<EnemyAnimatorManager>();
+            enemyanimatormanager.PlayTargetAnimation("Attack", true);
+            SetIsStoppedByInteraction(true);
         }
     }
 
@@ -141,7 +178,7 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 }

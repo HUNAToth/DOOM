@@ -43,6 +43,9 @@ public class EnemyStats : CharacterStats
             {
                 soundScript.PlayDamageSound();
                 animator.Play("Damage01");
+
+                EnemyAI enemyAI = GetComponent<EnemyAI>();
+                enemyAI.SetIsStoppedByInteraction(true);
             }
         }
     }
