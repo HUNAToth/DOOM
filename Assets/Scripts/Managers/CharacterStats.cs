@@ -15,4 +15,10 @@ public class CharacterStats : MonoBehaviour
     public int maxStamina;
 
     public int currentStamina;
+
+    public int armorLevel = 10;
+
+    public int maxArmor;
+
+    public int currentArmor;
 }

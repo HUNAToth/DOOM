@@ -17,11 +17,24 @@ use shit gomb (ajtót, kapcsolót)
 player:fegyverei vannak lőszerrel(fegyverspecifikus v nem )
 savas/lávás shites padló
 sprint
+sérülés és halálhangok enemyn és playeren is
+enemyk sebeznek
+
+item felvétel hangok
+felvehető item(absztrakció) ->van audio sourceja és közös értékek
+
+enemy ai scriptet letiltani enemy halálkor
+
+
+
+
+
+
 
 
 Itemek:
-hp töltő item s/m/l maxon nem veszi fel
 
+hp töltő item s/m/l maxon nem veszi fel
 armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
 felszedhető armor xig
 fal ami kapcsolótól nyilik ki
@@ -32,10 +45,11 @@ fegyverek
 
 
 hpja páncélja van
-enemyk sebeznek
+
 robbanós hordó
 enemy: van x hpja, valamit lő vagy közel fut és közelharcban támad
 v0.01 enemy találat van, sebzés még nincs
+v0.5 enemy követ, lövedékkel dobál, nem túl pontos
 
 berserk
 saválló köpeny 
@@ -43,10 +57,7 @@ x ideig tart(kijelezni)
 invisibility
 invulnerability
 
-sérülés és halálhangok enemyn és playeren is
-item felvétel hangok
-felvehető item(absztrakció) ->van audio sourceja és közös értékek
-enemy ai scriptet letiltani enemy halálkor
+
 gameover kezelése: movement tiltás, canvason szöveg, retry /quit gomb
 
 load/save - adott pálya elejétől ----------> játék során bármikor
@@ -58,3 +69,5 @@ BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható
 
 
 UI:
+armor, kulcs ha többféle van,
+

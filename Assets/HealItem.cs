@@ -2,33 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SG
+public class HealItem : Item
 {
-public class HealItem : MonoBehaviour
-{
-    public int PointsRestored = 10;
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-     private void OnTriggerEnter(Collider other)
-    {
-       if (other.transform.tag == "Player"){
-                    GameObject player;
-                    player = GameObject.Find(other.transform.gameObject.name);
-                    if( player.GetComponent<PlayerStats>().CanPickupHealthItem(PointsRestored)){
-                        player.GetComponent<PlayerStats>().IncreaseHealth(PointsRestored);
-                        Destroy (gameObject);
-                    }
+        if (other.transform.tag == "Player")
+        {
+            GameObject player;
+            player = GameObject.Find(other.transform.gameObject.name);
+            if (player.GetComponent<PlayerStats>().CanPickupHealthItem(Value))
+            {
+                _audioSource.Play();
+                if (!ShouldDestroy)
+                {
+                    ShouldDestroy = true;
+                    player.GetComponent<PlayerStats>().IncreaseHealth(Value);
                 }
+            }
+        }
     }
-}
 }

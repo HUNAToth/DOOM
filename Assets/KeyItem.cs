@@ -2,33 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SG
+public class KeyItem : MonoBehaviour
 {
-    public class KeyItem : MonoBehaviour
+    public List<GameObject> LocksToOpen;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        public List<GameObject> LocksToOpen;
+    }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
+    // Update is called once per frame
+    void Update()
+    {
+    }
 
-        // Update is called once per frame
-        void Update()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Player")
         {
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.transform.tag == "Player")
+            foreach (var Lock in LocksToOpen)
             {
-                foreach (var Lock in LocksToOpen)
-                {
-                    Lock.GetComponent<OpenDoor>().SetKeyCollected(true);
-                }
-
-                Destroy (gameObject);
+                Lock.GetComponent<OpenDoor>().SetKeyCollected(true);
             }
+
+            Destroy (gameObject);
         }
     }
 }
