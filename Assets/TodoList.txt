@@ -3,9 +3,8 @@
 Kész:
 
 pici hp töltő amit maxon is felvesz x-ig)200)
-pici hp töltő amit maxon is felvesz x-ig)200)
-felszedhető lőszer
-lőszer  maxon nem veszi fel
+felszedhető lőszer xig
+felszedhető armor xig
 kapcsoló ki/be
 kapcsoló csak 1x nyomós
 ajtó v0.01 2object, egy triggerarea és  egy "ajtó", ajtót behúzva gameobjectként a triggerareának E-t nyomva destroyolja
@@ -25,31 +24,35 @@ felvehető item(absztrakció) ->van audio sourceja és közös értékek
 
 enemy ai scriptet letiltani enemy halálkor
 
+armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
+
+UI:
+armor,
 
 
 
 
 
+TODO
 
 
 Itemek:
 
 hp töltő item s/m/l maxon nem veszi fel
-armor (%osan csökkenti a sebzést, de valamennyire le is pusztul a találatoktól)
-felszedhető armor xig
+armor amortizációt átdolgozni 
 fal ami kapcsolótól nyilik ki
 
 
 lift
 fegyverek
 
-
-hpja páncélja van
-
 robbanós hordó
-enemy: van x hpja, valamit lő vagy közel fut és közelharcban támad
+
+enemy: 
+páncélja van van x hpja, valamit lő vagy közel fut és közelharcban támad
 v0.01 enemy találat van, sebzés még nincs
 v0.5 enemy követ, lövedékkel dobál, nem túl pontos
+ai javítandó
 
 berserk
 saválló köpeny 
@@ -68,6 +71,6 @@ BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható
 
 
 
-UI:
-armor, kulcs ha többféle van,
+UI
+ kulcs ha többféle van,
 
