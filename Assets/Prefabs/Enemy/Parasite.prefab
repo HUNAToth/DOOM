@@ -432,7 +432,6 @@ GameObject:
   - component: {fileID: 5881776690293628818}
   - component: {fileID: 1209601377}
   - component: {fileID: 1420740170335106056}
-  - component: {fileID: 689846129324706150}
   m_Layer: 0
   m_Name: Parasite
   m_TagString: Dummie
@@ -521,14 +520,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthLevel: 10
-  maxHealth: 0
-  currentHealth: 0
-  enduranceLevel: 10
-  maxStamina: 0
-  currentStamina: 0
   armorLevel: 10
-  maxArmor: 0
-  currentArmor: 0
+  attackDamage: 10
+  attackCooldown: 3
+  movementSpeed: 3
+  sightRange: 10
+  patrolRange: 5
+  attackRange: 1.5
+  EnemyType: Melee
 --- !u!114 &5977718812212304085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,6 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3147729617228957093}
+  rb: {fileID: 0}
 --- !u!114 &5881776690293628818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,23 +555,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 1209601377}
-  Player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 0
   projectile: {fileID: 6630012982303205331, guid: bf5f6e12d64f5e04b9ecc47793317268, type: 3}
-  timeBetweenAttacks: 2
-  stopInteractionDuration: 2000
-  stopInteractionTimer: 2
-  sightRange: 8
-  attackRange: 5
-  playerIsInSightRange: 0
-  playerIsInAttackRange: 0
 --- !u!195 &1209601377
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -609,32 +599,6 @@ MonoBehaviour:
   _damageSound: {fileID: 7830054996650359754}
   _attackSound: {fileID: 4374501737590903848}
   _deathSound: {fileID: 4449547394789177839}
---- !u!114 &689846129324706150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8504211240084899173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1c369574b488314cad217e49b0916b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockOnTransform: {fileID: 0}
-  navMeshAgent: {fileID: 0}
-  enemyRigidbody: {fileID: 1199232833413459247}
-  currentState: {fileID: 0}
-  currentTarget: {fileID: 0}
-  isPerformingAction: 0
-  isInteracting: 0
-  detectionRadius: 20
-  minimumDetectionAngle: -50
-  maximumDetectionAngle: 50
-  currentRecoveryTime: 0
-  maximumAttackRange: 1.5
-  distanceFromTarget: 0
-  rotationSpeed: 15
 --- !u!1 &8823634325025828551
 GameObject:
   m_ObjectHideFlags: 0

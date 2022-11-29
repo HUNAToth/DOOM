@@ -37,6 +37,7 @@ gameover kezelése: movement tiltás, canvason szöveg,
 
 TODO
 
+REFAKTORÁLÁS
 
 Itemek:
 
@@ -56,6 +57,10 @@ v0.01 enemy találat van, sebzés még nincs
 v0.5 enemy követ, lövedékkel dobál, nem túl pontos
 ai javítandó
 
+enemyk egymást sebzik
+enemy támadás pont beállítás, közelharcos enemynél
+
+
 berserk
 saválló köpeny 
 x ideig tart(kijelezni)
@@ -70,5 +75,9 @@ load/save - adott pálya elejétől ----------> játék során bármikor
 teleport xyz kordinátára
 
 BUG: egyszer használatos ajtót kinyitva, másik oldalról többször nyitható aktivátor után előbb de majd simán aktivál
+
+---------------------------------------------------------------------------------------
+
+
 
 
