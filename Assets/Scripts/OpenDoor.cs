@@ -5,49 +5,40 @@ using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
+    //GameObjects
     public GameObject DoorToOpen;
-
-    // Start is called before the first frame update
-    public float MoveSpeed = 4.0f;
-
-    public bool TriggeredOnce = false;
-
     public Animator DoorAnim;
-
-    public float deactivationTime;
-
-    private float deactivationTimer = Mathf.Infinity;
-
-    public bool IsActive = false;
-
-    private bool FirstActivationDone = false;
-
     public GameObject SwitchOn;
-
     public GameObject SwitchOff;
 
+    //Move
+    public float MoveSpeed = 4.0f;
+
+    //MoveLogic
+    public bool isActivateOnce = false;
+    public bool isActive = false;
+    public float deactivationTime;
+  
+    //KeyLogic
     public bool isKeyRequired = false;
-
     public bool isKeyCollected = false;
-
     public bool isAutoTriggered = false;
 
-    void Start()
-    {
-    }
+    //PrivateLogic
+    private bool FirstActivationDone = false;
+    private float deactivationTimer = Mathf.Infinity;
 
-    // Update is called once per frame
     void Update()
     {
         if (
-            ((TriggeredOnce && !FirstActivationDone) || !TriggeredOnce) &&
+            ((isActivateOnce && !FirstActivationDone) || !isActivateOnce) &&
             deactivationTimer <= 0 &&
-            IsActive
+            isActive
         )
         {
             DoorAnim.SetTrigger("IsDeactivated");
             deactivationTimer = Mathf.Infinity;
-            IsActive = false;
+            isActive = false;
 
             if (!isAutoTriggered)
             {
@@ -64,8 +55,8 @@ public class OpenDoor : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (
-            !IsActive &&
-            ((TriggeredOnce && !FirstActivationDone) || !TriggeredOnce)
+            !isActive &&
+            ((isActivateOnce && !FirstActivationDone) || !isActivateOnce)
         )
         {
             if (
@@ -75,7 +66,7 @@ public class OpenDoor : MonoBehaviour
             {
                 DoorAnim.SetTrigger("IsActivated");
                 deactivationTimer = deactivationTime;
-                IsActive = true;
+                isActive = true;
                 FirstActivationDone = true;
                 if (!isAutoTriggered)
                 {
