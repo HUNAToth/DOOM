@@ -58,7 +58,17 @@ public class EnemyAI : MonoBehaviour
 
         if (enemyStats.GetCurrentHealth() > 0)
         {
-            if (!playerIsInSightRange && !playerIsInAttackRange)
+            if (enemyStats.GetLastSeenEnemy() != null && playerIsInAttackRange)
+            {
+                AttackPlayer();
+            }
+            else if (
+                enemyStats.GetLastSeenEnemy() != null && !playerIsInAttackRange
+            )
+            {
+                ChasePlayer();
+            }
+            else if (!playerIsInSightRange && !playerIsInAttackRange)
             {
                 Patrolling();
             }
@@ -115,7 +125,7 @@ public class EnemyAI : MonoBehaviour
     // Chase player
     private void ChasePlayer()
     {
-        //   Debug.Log("ChasePlayer");
+        Debug.Log("ChasePlayer");
         enemyAnimatorManager.PlayWalk();
         navMeshAgent.SetDestination(Player.position);
     }
@@ -132,7 +142,9 @@ public class EnemyAI : MonoBehaviour
                     Instantiate(projectile,
                     transform.Find("ProjectileEmitter").transform.position,
                     Quaternion.identity).GetComponent<Rigidbody>();
-                rb.AddForce(transform.forward * enemyStats.fireballSpeed, ForceMode.Impulse);
+                rb
+                    .AddForce(transform.forward * enemyStats.fireballSpeed,
+                    ForceMode.Impulse);
             }
             else if (enemyStats.EnemyType == "Melee")
             {
