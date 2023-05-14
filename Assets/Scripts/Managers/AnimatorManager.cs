@@ -32,28 +32,28 @@ public class AnimatorManager : MonoBehaviour
         anim.CrossFade(targetAnim, 0.2f);
     }
 
-    public void PlayWalk()
+    public void SetWalk(bool isWalking)
     {
-        anim.SetBool("_walk", true);
+        anim.SetBool("_walk", isWalking);
     }
 
     public void PlayAttack()
     {
-        anim.SetBool("_walk", false);
+        SetWalk(false);
         anim.SetTrigger("_attack");
         soundScript.PlayAttackSound();  
     }
 
     public void PlayDamage()
     {
-        anim.SetBool("_walk", false);
+        SetWalk(false);
         anim.SetTrigger("_damage");
         soundScript.PlayDamageSound();
     }
 
     public void PlayDeath()
     {
-        anim.SetBool("_walk", false);
+        SetWalk(false);
         anim.SetTrigger("_die");
     }
 }

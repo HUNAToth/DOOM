@@ -76,7 +76,7 @@ public class EnemyAI : MonoBehaviour
     private void Patrolling()
     {
         // Debug.Log("Patrolling");
-        enemyAnimatorManager.PlayWalk();
+        enemyAnimatorManager.SetWalk(true);
         if (!isDestinationSet)
         {
             SearchDestinationPoint();
