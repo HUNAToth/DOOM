@@ -46,12 +46,14 @@ public class AnimatorManager : MonoBehaviour
 
     public void PlayDamage()
     {
+        anim.SetBool("_walk", false);
         anim.SetTrigger("_damage");
         soundScript.PlayDamageSound();
     }
 
     public void PlayDeath()
     {
+        anim.SetBool("_walk", false);
         anim.SetTrigger("_die");
     }
 }

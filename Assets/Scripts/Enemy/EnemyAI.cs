@@ -124,7 +124,6 @@ public class EnemyAI : MonoBehaviour
     {
         navMeshAgent.SetDestination(Player.position);
 
-        //   transform.LookAt(new Vector3(Player.position.x, 0f, Player.position.y));
         if (!alreadyAttacked)
         {
             if (enemyStats.EnemyType == "Ranged")
@@ -133,11 +132,10 @@ public class EnemyAI : MonoBehaviour
                     Instantiate(projectile,
                     transform.Find("ProjectileEmitter").transform.position,
                     Quaternion.identity).GetComponent<Rigidbody>();
-                rb.AddForce(transform.forward * 1f, ForceMode.Impulse);
+                rb.AddForce(transform.forward * enemyStats.fireballSpeed, ForceMode.Impulse);
             }
             else if (enemyStats.EnemyType == "Melee")
             {
-                //spherrel megnézni playert, őt sebezni x-el
                 GameObject Player;
                 Player = GameObject.Find("Player");
                 Player
@@ -149,7 +147,6 @@ public class EnemyAI : MonoBehaviour
                 this.gameObject.GetComponent<EnemySoundScript>();
             soundScript.PlayAttackSound();
 
-            //  rb.AddForce(transform.up * 0.8f, ForceMode.Impulse);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), enemyStats.attackCooldown);
             enemyAnimatorManager.PlayAttack();

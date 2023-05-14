@@ -26,6 +26,7 @@ public class EnemyStats : CharacterStats
 
     [SerializeField]
     public string EnemyType = "Melee";
+    public float fireballSpeed = 10f;
 
     private void Awake()
     {
