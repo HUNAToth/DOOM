@@ -116,7 +116,7 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         //   Debug.Log("ChasePlayer");
-        enemyAnimatorManager.PlayWalk();
+        enemyAnimatorManager.SetWalk(true);
         navMeshAgent.SetDestination(Player.position);
     }
 
