@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthLevel: 10
+  LastSeenEnemy: {fileID: 0}
   armorLevel: 10
   attackDamage: 10
   attackCooldown: 3

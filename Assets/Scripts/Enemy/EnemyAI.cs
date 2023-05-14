@@ -86,7 +86,7 @@ public class EnemyAI : MonoBehaviour
     private void Patrolling()
     {
         // Debug.Log("Patrolling");
-        enemyAnimatorManager.PlayWalk();
+        enemyAnimatorManager.SetWalk(true);
         if (!isDestinationSet)
         {
             SearchDestinationPoint();
@@ -125,7 +125,7 @@ public class EnemyAI : MonoBehaviour
     // Chase player
     private void ChasePlayer()
     {
-        Debug.Log("ChasePlayer");
+        //   Debug.Log("ChasePlayer");
         enemyAnimatorManager.PlayWalk();
         navMeshAgent.SetDestination(Player.position);
     }
