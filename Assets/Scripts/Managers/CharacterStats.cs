@@ -14,6 +14,18 @@ public class CharacterStats : MonoBehaviour
         return maxHealth;
     }
 
+    public GameObject LastSeenEnemy;
+
+    public void SetLastSeenEnemy(GameObject enemy)
+    {
+        LastSeenEnemy = enemy;
+    }
+
+    public GameObject GetLastSeenEnemy()
+    {
+        return LastSeenEnemy;
+    }
+
     protected int currentHealth;
 
     public void SetCurrentHealth(int newCurrent)
