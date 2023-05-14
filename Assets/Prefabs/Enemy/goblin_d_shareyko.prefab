@@ -2877,6 +2877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthLevel: 10
+  LastSeenEnemy: {fileID: 0}
   armorLevel: 10
   attackDamage: 10
   attackCooldown: 3
@@ -2939,7 +2940,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -3
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1420740170335106056
