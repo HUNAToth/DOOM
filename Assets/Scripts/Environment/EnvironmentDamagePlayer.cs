@@ -12,6 +12,8 @@ public class EnvironmentDamagePlayer : MonoBehaviour
 {
     public int DamageValue = 5;
 
+    public int EnemyDamageValue = 0;
+
     float Timer = 0f;
 
     public float TimerMax = 2.0f;
@@ -28,11 +30,22 @@ public class EnvironmentDamagePlayer : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.transform.tag == "Player")
+        string otherTag = other.transform.tag;
+        if (otherTag == "Player" || otherTag == "Dummie")
         {
             if (Timer <= 0)
             {
-                other.GetComponent<PlayerStats>().TakeDamage(DamageValue);
+                if (otherTag == "Player")
+                {
+                    other.GetComponent<PlayerStats>().TakeDamage(DamageValue);
+                }
+                else if (otherTag == "Dummie")
+                {
+                    Debug.Log("DummiDamage_" + EnemyDamageValue);
+                    other
+                        .GetComponent<EnemyStats>()
+                        .TakeDamage(EnemyDamageValue);
+                }
                 Timer = TimerMax;
             }
             else

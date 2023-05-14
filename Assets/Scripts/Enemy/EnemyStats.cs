@@ -51,6 +51,7 @@ public class EnemyStats : CharacterStats
         {
             //todo enemyarmor
             currentHealth = currentHealth - damage;
+            Debug.Log (currentHealth);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
