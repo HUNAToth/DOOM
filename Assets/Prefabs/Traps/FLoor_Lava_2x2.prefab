@@ -58,6 +58,14 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: TimerMax
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: DamageValue
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7421424063169239870, guid: ba388395ea55f304384d21a49de8e449, type: 3}
       propertyPath: m_Name
       value: Floor_Lava
@@ -135,6 +143,14 @@ PrefabInstance:
     - target: {fileID: 1154803962805202700, guid: ba388395ea55f304384d21a49de8e449, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: TimerMax
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: DamageValue
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7421424063169239870, guid: ba388395ea55f304384d21a49de8e449, type: 3}
       propertyPath: m_Name
@@ -214,6 +230,14 @@ PrefabInstance:
       propertyPath: m_Shadows.m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: TimerMax
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: DamageValue
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7421424063169239870, guid: ba388395ea55f304384d21a49de8e449, type: 3}
       propertyPath: m_Name
       value: Floor_Lava (2)
@@ -291,6 +315,14 @@ PrefabInstance:
     - target: {fileID: 1154803962805202700, guid: ba388395ea55f304384d21a49de8e449, type: 3}
       propertyPath: m_Shadows.m_Type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: TimerMax
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748545669313101275, guid: ba388395ea55f304384d21a49de8e449, type: 3}
+      propertyPath: DamageValue
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7421424063169239870, guid: ba388395ea55f304384d21a49de8e449, type: 3}
       propertyPath: m_Name

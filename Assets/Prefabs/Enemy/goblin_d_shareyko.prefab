@@ -2884,7 +2884,7 @@ MonoBehaviour:
   sightRange: 10
   patrolRange: 5
   attackRange: 1.5
-  EnemyType: Melee
+  EnemyType: Ranged
 --- !u!114 &5977718812212304085
 MonoBehaviour:
   m_ObjectHideFlags: 0
