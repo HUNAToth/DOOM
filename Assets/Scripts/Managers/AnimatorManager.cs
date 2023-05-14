@@ -15,10 +15,11 @@ public class AnimatorManager : MonoBehaviour
     public Rigidbody rb;
 
     protected EnemySoundScript soundScript;
-
+   
     // get sound script and rigidbody
     void Awake()
     {
+        anim = GetComponent<Animator>();
         soundScript = GetComponent<EnemySoundScript>();
         rb = GetComponent<Rigidbody>();
     }
@@ -33,25 +34,24 @@ public class AnimatorManager : MonoBehaviour
 
     public void PlayWalk()
     {
-        //soundScript.PlayDamageSound();
-        PlayTargetAnimation("Walk", true);
+        anim.SetBool("_walk", true);
     }
 
     public void PlayAttack()
     {
-        soundScript.PlayAttackSound();
-        PlayTargetAnimation("Attack", true);
+        anim.SetBool("_walk", false);
+        anim.SetTrigger("_attack");
+        soundScript.PlayAttackSound();  
     }
 
     public void PlayDamage()
     {
+        anim.SetTrigger("_damage");
         soundScript.PlayDamageSound();
-        PlayTargetAnimation("Damage01", true);
     }
 
     public void PlayDeath()
     {
-        //   soundScript.PlayDeathSound();
-        PlayTargetAnimation("Death01", true);
+        anim.SetTrigger("_die");
     }
 }
