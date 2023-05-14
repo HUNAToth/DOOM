@@ -13,18 +13,21 @@ public class Item : MonoBehaviour
     public float destroyTimer = 0.3f;
 
     /*TODO
-    Awake()-ben behúzni a komponensben megadott timerértéket editorban
-*/
+        Awake()-ben behúzni a komponensben megadott timerértéket editorban
+    */
     // Update is called once per frame
     void Update()
     {
+        // if the item should be destroyed
         if (ShouldDestroy)
         {
             if (destroyTimer > 0)
+            // if the timer is not done then decrease the timers
             {
                 destroyTimer -= Time.deltaTime;
             }
             else
+            // shound delay is done then destroy the object
             {
                 Destroy (gameObject);
             }

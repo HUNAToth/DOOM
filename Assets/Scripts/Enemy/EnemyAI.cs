@@ -44,17 +44,6 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        /* if (isStoppedByInteraction)
-        {
-            stopInteractionTimer -= Time.deltaTime;
-            if (stopInteractionTimer < 0)
-            {
-                stopInteractionTimer = 0;
-                isStoppedByInteraction = false;
-            }
-        }
-        else
-        {*/
         //Look for player
         playerIsInSightRange =
             Physics
@@ -82,11 +71,11 @@ public class EnemyAI : MonoBehaviour
                 AttackPlayer();
             }
         }
-        //}
     }
 
     private void Patrolling()
     {
+        Debug.Log("Patrolling");
         enemyAnimatorManager.PlayWalk();
         if (!isDestinationSet)
         {
@@ -123,10 +112,12 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // Chase player
     private void ChasePlayer()
     {
-        navMeshAgent.SetDestination(Player.position);
+        Debug.Log("ChasePlayer");
         enemyAnimatorManager.PlayWalk();
+        navMeshAgent.SetDestination(Player.position);
     }
 
     private void AttackPlayer()
@@ -165,16 +156,9 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // Reset attack after cooldown
     private void ResetAttack()
     {
         alreadyAttacked = false;
     }
-
-    /*   private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, enemyStats.attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, enemyStats.sightRange);
-    }*/
 }

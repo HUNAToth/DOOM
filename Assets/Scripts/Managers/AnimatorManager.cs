@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script is used to manage the animator
+// This script is attached to the enemy
+// editor variables
+// +    anim: the animator component
+// +    rb: the rigidbody component
+// +    soundScript: the sound script component
 public class AnimatorManager : MonoBehaviour
 {
     public Animator anim;
@@ -10,12 +16,14 @@ public class AnimatorManager : MonoBehaviour
 
     protected EnemySoundScript soundScript;
 
+    // get sound script and rigidbody
     void Awake()
     {
         soundScript = GetComponent<EnemySoundScript>();
         rb = GetComponent<Rigidbody>();
     }
 
+    // play the target animation
     public void PlayTargetAnimation(string targetAnim, bool isInteracting)
     {
         anim.applyRootMotion = isInteracting;
@@ -26,24 +34,24 @@ public class AnimatorManager : MonoBehaviour
     public void PlayWalk()
     {
         //soundScript.PlayDamageSound();
-        PlayTargetAnimation("Character_Walk", true);
+        PlayTargetAnimation("Walk", true);
     }
 
     public void PlayAttack()
     {
         soundScript.PlayAttackSound();
-        PlayTargetAnimation("Attack", false);
+        PlayTargetAnimation("Attack", true);
     }
 
     public void PlayDamage()
     {
         soundScript.PlayDamageSound();
-        PlayTargetAnimation("Damage01", false);
+        PlayTargetAnimation("Damage01", true);
     }
 
     public void PlayDeath()
     {
         //   soundScript.PlayDeathSound();
-        PlayTargetAnimation("Death01", false);
+        PlayTargetAnimation("Death01", true);
     }
 }
