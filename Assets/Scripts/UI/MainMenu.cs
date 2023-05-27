@@ -37,4 +37,12 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+    public void SaveGame()
+    {
+        gameManager.SaveGame();
+    }
+    public void LoadGame()
+    {
+        gameManager.LoadGame();
+    }
 }

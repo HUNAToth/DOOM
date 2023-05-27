@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    private const string fileName = "Save.txt";
     private GameObject gameCanvas;
 
     [SerializeField]
@@ -109,6 +111,22 @@ public class GameManager : MonoBehaviour
         uiCanvas.SetActive(false);
         gameCanvas.SetActive(true);
     }
+    //This method will be called when the player click the save button
+    //It will save the screen name and the player position
+    //The screen name will be used to load the screen
+    //The player position will be used to load the player position
+    //The data will be saved SaveData.txt file in JSON format
+
+    public void SaveGame(){
+        //Save the game
+        
+        string activeScreenName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+        string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        File.WriteAllText(filePath, activeScreenName);
+        ContinueGame();
+        
+    }
 
     public void ContinueGame()
     {
@@ -117,7 +135,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         mainMenuTimer = 0;
         isPause = false;
+       
+        
+       
     }
+    public void LoadGame(){
+        //Load the game
+        string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        string activeScreenName = File.ReadAllText(filePath);
+        SceneManager.LoadScene(activeScreenName);
+    }
+    
 
     public void Restart()
     {
