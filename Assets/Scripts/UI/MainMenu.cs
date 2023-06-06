@@ -14,8 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("doin something");
-        SceneManager.LoadScene("Level_1");
+        gameManager.StartGame();
     }
 
     public void ContinueGame()
@@ -44,5 +43,10 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         gameManager.LoadGame();
+    }
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //gameManager.LoadNextScene();
     }
 }

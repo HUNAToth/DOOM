@@ -76,6 +76,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Level_1_intro");
+    }
+    
     public void PauseGame()
     {
         Time.timeScale = 0;
@@ -135,10 +140,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         mainMenuTimer = 0;
         isPause = false;
-       
-        
-       
     }
+
     public void LoadGame(){
         //Load the game
         string filePath = Path.Combine(Application.persistentDataPath, fileName);
@@ -146,7 +149,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(activeScreenName);
     }
     
-
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -161,13 +163,12 @@ public class GameManager : MonoBehaviour
         )
         {
             completeAllLevelUI.SetActive(true);
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("MainMenu");
         }
         else
         {
             completeLevelUI.SetActive(true);
-            SceneManager
-                .LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            LoadNextScene();
         }
     }
 
@@ -178,6 +179,11 @@ public class GameManager : MonoBehaviour
             isGameOver = true;
             gameOverUI.SetActive(true);
         }
+    }
+
+   public void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void goToMainMenu()
