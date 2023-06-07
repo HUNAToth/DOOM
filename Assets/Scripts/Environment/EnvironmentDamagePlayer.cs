@@ -39,7 +39,7 @@ public class EnvironmentDamagePlayer : MonoBehaviour
                 {
                     other.GetComponent<PlayerStats>().TakeDamage(DamageValue);
                 }
-                else if (otherTag == "Dummie")
+                else if (otherTag == "Dummie" && EnemyDamageValue > 0)
                 {
                     Debug.Log("DummiDamage_" + EnemyDamageValue);
                     other

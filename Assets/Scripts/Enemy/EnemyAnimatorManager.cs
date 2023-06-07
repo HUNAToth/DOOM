@@ -14,7 +14,6 @@ public class EnemyAnimatorManager : AnimatorManager
     private void OnAnimatorMove()
     {
         float delta = Time.deltaTime;
-        EnemyAI SelfAI = GetComponent<EnemyAI>();
 
         if (
             !GameObject
@@ -29,7 +28,6 @@ public class EnemyAnimatorManager : AnimatorManager
         {
             if (delta != 0)
             {
-                SelfAI.enabled = true;
                 rb.drag = 0;
 
                 Vector3 deltaPosition = anim.deltaPosition;
@@ -37,10 +35,6 @@ public class EnemyAnimatorManager : AnimatorManager
                 Vector3 velocity = deltaPosition / delta;
                 rb.velocity = velocity;
             }
-        }
-        else
-        {
-            SelfAI.enabled = false;
         }
     }
 }

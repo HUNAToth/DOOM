@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
+using Newtonsoft.Json;
 
 public class GameManager : MonoBehaviour
 {
-    private Dictionary<string, string> keyValuePairs;
+    [System.Serializable]
+    public class SaveData
+    {
+        public string playerName;
+        public string activeScreenName;
+        public int playerScore;
+    }
+    private SaveData saveData;
     private static string filePath;
 
     private GameObject gameCanvas;
@@ -43,7 +51,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         filePath = Application.persistentDataPath + "/Save.txt";
-        keyValuePairs = new Dictionary<string, string>();
+        saveData = new SaveData();
+        ReadDataFromFile();
         gameCanvas = GameObject.Find("Canvas");
         enemyManager = FindObjectOfType<EnemyManager>();
         playerStats = FindObjectOfType<PlayerStats>();
@@ -56,31 +65,29 @@ public class GameManager : MonoBehaviour
     
     private void WriteDataToFile()
     {
-        StreamWriter writer = new StreamWriter(filePath, false);
-        foreach (KeyValuePair<string, string> pair in keyValuePairs)
-        {
-            writer.WriteLine(pair.Key + ":" + pair.Value);
-        }
-        writer.Close();
+        string jsonData = JsonConvert.SerializeObject(saveData);
+
+        // Fájlba írás
+        File.WriteAllText(filePath, jsonData);
+
+        Debug.Log("SaveFile: " + filePath);
     }
 
     private void ReadDataFromFile()
     {
-        if (File.Exists(filePath))
+      if (File.Exists(filePath))
         {
-            string[] lines = File.ReadAllLines(filePath);
-            foreach (string line in lines)
-                {
-                    string[] parts = line.Split(':');
-                    string key = parts[0];
-                    string value = parts[1];
+            string jsonData = File.ReadAllText(filePath);
 
-                    keyValuePairs.Add(key, value);
-                }
+            saveData = JsonConvert.DeserializeObject<SaveData>(jsonData);
+
+            Debug.Log("LoadData: " + filePath);
+            Debug.Log("Score: " + saveData.playerScore);
+            Debug.Log("ActiveScreen: " + saveData.activeScreenName);
         }
         else
         {
-            Debug.Log("FileNotFound: " + filePath);
+            Debug.Log("File not found: " + filePath);
         }
     }
 
@@ -91,7 +98,7 @@ public class GameManager : MonoBehaviour
         
         if(SceneManager.GetActiveScene().name != "MainMenu"){
             // If the player is dead, the game time is over!
-            if(playerStats.GetIsDead() ){
+            if(playerStats!=null && playerStats.GetIsDead() ){
                 GameOver();
             }
 
@@ -128,19 +135,21 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Level_1_intro");
+        playerStats.SetPlayerScore(0);
+        saveData.playerScore = 0;
     }
 
     //Save the game
     public void SaveGame(){
         //Save the game
-        
-        string activeScreenName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
-        keyValuePairs.Add("ActiveScreen", activeScreenName);
-        //Save Dictionary to file
+        string activeScreenName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        saveData.activeScreenName = activeScreenName;
+
+        saveData.playerScore = 0;
+        playerStats.SetPlayerScore(0);
+    
         WriteDataToFile();
-        //string filePath = Path.Combine(Application.persistentDataPath, fileName);
-        //File.WriteAllText(filePath, activeScreenName);
         
         ContinueGame();
         
@@ -149,11 +158,9 @@ public class GameManager : MonoBehaviour
     //Load the game
     public void LoadGame(){
 
-        ReadDataFromFile();
         try
         {
-            string activeScreenName = keyValuePairs["ActiveScreen"];
-            SceneManager.LoadScene(activeScreenName);
+            SceneManager.LoadScene(saveData.activeScreenName);
         }
         catch (KeyNotFoundException)
         {
@@ -164,7 +171,21 @@ public class GameManager : MonoBehaviour
     // Load the next scene
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        saveData.playerScore = 0;
+        playerStats.SetPlayerScore(0);
+        // TODO Debuging why bugy when should load main menu at the end of the game
+        if (
+            SceneManager.sceneCountInBuildSettings - 1 ==
+            SceneManager.GetActiveScene().buildIndex
+        )
+        {
+            completeAllLevelUI.SetActive(true);
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     // - In game play methods - //
@@ -230,9 +251,7 @@ public class GameManager : MonoBehaviour
         playerStats.SetPlayerScore(enemyManager.getDeadEnemyCount() * 100);
         playerStats.disablePlayerScript();
         gameCanvas.SetActive(false);
-        //mainMenuTimer = 0;
         isPause = true;
-        Debug.Log("CompleteLevel");
         if (
             SceneManager.sceneCountInBuildSettings - 1 ==
             SceneManager.GetActiveScene().buildIndex
@@ -243,12 +262,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            keyValuePairs.Add("Score", playerStats.GetPlayerScore().ToString());
+            saveData.playerScore = playerStats.GetPlayerScore();
             WriteDataToFile();
 
             completeLevelUI.SetActive(true);
-            LoadNextScene();
         }
+        LoadNextScene();
     }
 
     // - Getters - //

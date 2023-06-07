@@ -52,14 +52,17 @@ public class EnemyStats : CharacterStats
         {
             //todo enemy armor
             currentHealth = currentHealth - damage;
+            Debug.Log("Enemy Health: " + currentHealth);
             if (currentHealth <= 0)
             {
+                Debug.Log("Enemy Died");
                 currentHealth = 0;
                 enemyAnimatorManager.PlayDeath();
                 isDead = true;
             }
             else
             {
+                Debug.Log("Enemy Damaged");
                 enemyAnimatorManager.PlayDamage();
             }
         }
