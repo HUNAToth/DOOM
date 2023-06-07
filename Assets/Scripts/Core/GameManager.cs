@@ -137,7 +137,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Level_1_intro");
-        playerStats.SetPlayerScore(0);
         saveData.playerScore = 0;
     }
 
