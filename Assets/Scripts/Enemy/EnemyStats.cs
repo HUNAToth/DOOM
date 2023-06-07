@@ -52,12 +52,11 @@ public class EnemyStats : CharacterStats
         {
             //todo enemy armor
             currentHealth = currentHealth - damage;
-            Debug.Log (currentHealth);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 enemyAnimatorManager.PlayDeath();
-                //TODO deative enemy ai during animation
+                isDead = true;
             }
             else
             {
@@ -65,4 +64,5 @@ public class EnemyStats : CharacterStats
             }
         }
     }
+  
 }

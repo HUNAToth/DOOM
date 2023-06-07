@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     private const string fileName = "Save.txt";
     private GameObject gameCanvas;
 
+    private EnemyManager enemyManager;
+    private PlayerStats playerStats;
+
     [SerializeField]
     public GameObject completeLevelUI;
 
@@ -33,9 +36,14 @@ public class GameManager : MonoBehaviour
 
     private bool isLevelComplete = false;
 
+    private int enemyCount;
+    private int playerScore = 0;
+
     private void Awake()
     {
         gameCanvas = GameObject.Find("Canvas");
+        enemyManager = FindObjectOfType<EnemyManager>();
+        playerStats = FindObjectOfType<PlayerStats>();
         restartTimer = restartDelay;
         Time.timeScale = 1;
         isPause = false;
@@ -53,6 +61,25 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // If the player is dead, the game time is over!
+        if(playerStats.GetIsDead()){
+            GameOver();
+        }
+
+        // If Game is over, restart the game
+        if (isGameOver == true)
+        {
+            if (restartTimer <= 0)
+            {
+                Restart();
+                restartTimer = restartDelay;
+            }
+            restartTimer -= Time.deltaTime;
+        }
+
+        // Otherwise, if the player is alive, rock and roll
+        // Check if the player is pressing the escape key and the current scene is not the main menu
+        // If not already paused then pause the game
         if (
             Input.GetKey(KeyCode.Escape) &&
             SceneManager.GetActiveScene().name != "MainMenu" &&
@@ -64,16 +91,9 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
+        // Set the main menu timer
         mainMenuTimer += Time.deltaTime;
-        if (isGameOver == true)
-        {
-            if (restartTimer <= 0)
-            {
-                Restart();
-                restartTimer = restartDelay;
-            }
-            restartTimer -= Time.deltaTime;
-        }
+
     }
 
     public void StartGame()
@@ -85,37 +105,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
-        disablePlayerScript();
+        playerStats.disablePlayerScript();
+
+        gameCanvas.SetActive(false);
         SceneManager.LoadScene("GameMenu", LoadSceneMode.Additive);
+        
         mainMenuTimer = 0;
         isPause = true;
     }
 
-    public void disablePlayerScript()
-    {
-        GameObject player = GameObject.Find("Player");
-        player.GetComponent<GunInventory>().enabled = false;
-        player
-            .GetComponent<GunInventory>()
-            .currentGun
-            .GetComponent<GunScript>()
-            .enabled = false;
-        gameCanvas.SetActive(false);
-    }
 
-    public void enablePlayerScript()
-    {
-        GameObject player = GameObject.Find("Player");
-        GameObject uiCanvas = GameObject.Find("Canvas");
-        player.GetComponent<GunInventory>().enabled = true;
-        player
-            .GetComponent<GunInventory>()
-            .currentGun
-            .GetComponent<GunScript>()
-            .enabled = true;
-        uiCanvas.SetActive(false);
-        gameCanvas.SetActive(true);
-    }
     //This method will be called when the player click the save button
     //It will save the screen name and the player position
     //The screen name will be used to load the screen
@@ -135,8 +134,15 @@ public class GameManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        GameObject uiCanvas = GameObject.Find("Canvas");
+
         SceneManager.UnloadSceneAsync("GameMenu");
-        enablePlayerScript();
+
+        playerStats.enablePlayerScript();
+
+        uiCanvas.SetActive(false);
+        gameCanvas.SetActive(true);
+
         Time.timeScale = 1;
         mainMenuTimer = 0;
         isPause = false;
@@ -156,6 +162,10 @@ public class GameManager : MonoBehaviour
 
     public void CompleteLevel()
     {
+        
+        int enemyCount = enemyManager.getEnemyCount();
+        int deadEnemyCount = enemyManager.getDeadEnemyCount();
+        playerScore = deadEnemyCount * 100;
         Debug.Log("CompleteLevel");
         if (
             SceneManager.sceneCountInBuildSettings - 1 ==
@@ -170,6 +180,10 @@ public class GameManager : MonoBehaviour
             completeLevelUI.SetActive(true);
             LoadNextScene();
         }
+    }
+    void OnDisable()
+    {
+        PlayerPrefs.SetInt("score", playerScore);
     }
 
     public void GameOver()

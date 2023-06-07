@@ -4,57 +4,81 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    // - Health -
     [SerializeField]
     public int healthLevel = 10;
-
     protected int maxHealth;
-
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
+    protected int currentHealth;
+    protected bool isDead = false;
 
     public GameObject LastSeenEnemy;
 
+    // - Armor -
+    [SerializeField]
+    public int armorLevel = 10;
+    protected int maxArmor;
+    protected int currentArmor;
+
+    
+
+    // Set the last seen enemy
     public void SetLastSeenEnemy(GameObject enemy)
     {
         LastSeenEnemy = enemy;
     }
 
+    // Get the last seen enemy
     public GameObject GetLastSeenEnemy()
     {
         return LastSeenEnemy;
     }
 
-    protected int currentHealth;
-
+    /**********************************************************************************************/
+    // - Health -
+    
+    // Get the max health of the character
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+    // Set current health of the character
     public void SetCurrentHealth(int newCurrent)
     {
         currentHealth = newCurrent;
     }
 
+    // Get current health of the character
     public int GetCurrentHealth()
     {
         return currentHealth;
     }
+    // Get the isDead the character
+      public bool GetIsDead()
+    {
+        return isDead;
+    }
+    // Set the isDead the character
+      public void SetIsDead(bool _isDead)
+    {
+        isDead = _isDead;
+    }
 
-    [SerializeField]
-    public int armorLevel = 10;
+    /**********************************************************************************************/
+    // - Armor -
 
-    protected int maxArmor;
-
+    // Get the max armor of the character
     public int GetMaxArmor()
     {
         return maxArmor;
     }
 
-    protected int currentArmor;
-
+    // Set the current armor of the character
     public void SetCurrentArmor(int newCurrent)
     {
         currentArmor = newCurrent;
     }
 
+    // Get the current armor of the character
     public int GetCurrentArmor()
     {
         return currentArmor;

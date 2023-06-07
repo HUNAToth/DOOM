@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
+
+    private int playerScore = 0;
+    private int playerLevel = 1;
+    private int playerExperience = 0;
+
+    private int availableEnemyCount = 0;
+    private int killedEnemyCount = 0;
+    
+
+    // - Initial - //
+    /**********************************************************************************************/
     // Start is called before the first frame update
     // set the max health of the player and the current health of the player
     void Start()
@@ -12,6 +23,8 @@ public class PlayerStats : CharacterStats
         currentHealth = maxHealth;
     }
 
+    // - Health - //
+    /**********************************************************************************************/
     private int SetMaxHealthFromHealthLevel()
     {
         maxHealth = healthLevel * 10;
@@ -35,6 +48,7 @@ public class PlayerStats : CharacterStats
     // if armor is 0% then damage goes to health
     public void TakeDamage(int damage)
     {
+        GameObject player = GameObject.Find("Player");
         if (currentArmor <= 0)
         {
             // take damage without armor
@@ -75,22 +89,45 @@ public class PlayerStats : CharacterStats
             // handle death
             // get the game manager and get the player and play the die sound
             // and call the game over function
-            var gameManager =
-                GameObject.Find("GameManager").GetComponent<GameManager>();
-            GameObject player = GameObject.Find("Player");
+            isDead = true;
             player.GetComponent<PlayerMovementScript>().PlayDieSound();
-            gameManager.GameOver();
+        
         }
         else
         {
             // get the player and play the damage sound
-            GameObject
-                .Find("Player")
+            player
                 .GetComponent<PlayerMovementScript>()
                 .PlayDamageSound();
         }
     }
+    // Disable the player scripts
+    public void disablePlayerScript()
+    {
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<GunInventory>().enabled = false;
+        player
+            .GetComponent<GunInventory>()
+            .currentGun
+            .GetComponent<GunScript>()
+            .enabled = false;
+    }
 
+    //Enable the player scripts
+    public void enablePlayerScript()
+    {
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<GunInventory>().enabled = true;
+        player
+            .GetComponent<GunInventory>()
+            .currentGun
+            .GetComponent<GunScript>()
+            .enabled = true;
+ 
+    }
+
+    // - Armor - //
+    /**********************************************************************************************/
     // Check the player is can pickup the armor item
     public bool CanPickupArmorItem(int PointsRestored, string ArmorType)
     {
@@ -106,4 +143,62 @@ public class PlayerStats : CharacterStats
     {
         currentArmor += PointsRestored;
     }
+
+    // - Score - //
+    /**********************************************************************************************/
+    // Get the score of the player
+    public int GetPlayerScore()
+    {
+        return playerScore;
+    }
+    // Set the score of the player
+    public void SetPlayerScore(int _playerScore)
+    {
+        playerScore = _playerScore;
+    }
+    // Increase the level of the player
+    public void IncreasePlayerLevel(int _playerLevel)
+    {
+        playerLevel += _playerLevel;
+    }
+    // Get the level of the player
+    public int GetPlayerLevel()
+    {
+        return playerLevel;
+    }
+    // Increase the experience of the player
+    public void IncreasePlayerExperience(int _playerExperience)
+    {
+        playerExperience += _playerExperience;
+    }
+    // Get the experience of the player
+    public int GetPlayerExperience()
+    {
+        return playerExperience;
+    }
+
+    // - Enemy Kill Stats- //
+    /**********************************************************************************************/
+    // Get the available enemy count
+    public int GetAvailableEnemyCount()
+    {
+        return availableEnemyCount;
+    }
+    // Set the available enemy count
+    public void SetAvailableEnemyCount(int _availableEnemyCount)
+    {
+        availableEnemyCount = _availableEnemyCount;
+    }
+    // Get the killed enemy count
+    public int GetKilledEnemyCount()
+    {
+        return killedEnemyCount;
+    }
+    // Set the killed enemy count
+    public void SetKilledEnemyCount(int _killedEnemyCount)
+    {
+        killedEnemyCount = _killedEnemyCount;
+    }
+
+
 }
