@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class SaveData
     {
-        public string playerName;
         public string activeScreenName;
+        public int enemyCount;
+        public int enemyDeadCount;
+        public int healthBonus;
         public int playerScore;
     }
     private SaveData saveData;
@@ -247,9 +249,20 @@ public class GameManager : MonoBehaviour
     // Complete the level
     public void CompleteLevel()
     {
-        
-        playerStats.SetPlayerScore(enemyManager.getDeadEnemyCount() * 100);
+        int enemyCount = enemyManager.getEnemyCount();
+        int deadEnemyCount = enemyManager.getDeadEnemyCount();
+        int healthBonus = (int)(playerStats.GetCurrentHealth() / playerStats.GetMaxHealth()*100) * 1000;
+        int enemyBonus = enemyCount/deadEnemyCount * 100;
+
+        saveData.enemyCount = enemyCount;
+        saveData.enemyDeadCount = deadEnemyCount;
+        playerStats.SetPlayerScore(healthBonus + enemyBonus);
         playerStats.disablePlayerScript();
+
+        saveData.healthBonus = healthBonus;
+        saveData.playerScore = enemyBonus + healthBonus;
+        
+
         gameCanvas.SetActive(false);
         isPause = true;
         if (
@@ -262,7 +275,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            saveData.playerScore = playerStats.GetPlayerScore();
+
+            
             WriteDataToFile();
 
             completeLevelUI.SetActive(true);
@@ -275,6 +289,10 @@ public class GameManager : MonoBehaviour
     public bool GetIsGamePause()
     {
         return isPause;
+    }
+    public SaveData GetSaveData()
+    {
+        return saveData;
     }
 
     // - Setters - //
