@@ -7,7 +7,9 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    private const string fileName = "Save.txt";
+    private Dictionary<string, string> keyValuePairs;
+    private static string filePath;
+
     private GameObject gameCanvas;
 
     private EnemyManager enemyManager;
@@ -36,11 +38,12 @@ public class GameManager : MonoBehaviour
 
     private bool isLevelComplete = false;
 
-    private int enemyCount;
-    private int playerScore = 0;
-
+    // - Initial - //
+    /**********************************************************************************************/
     private void Awake()
     {
+        filePath = Application.persistentDataPath + "/Save.txt";
+        keyValuePairs = new Dictionary<string, string>();
         gameCanvas = GameObject.Find("Canvas");
         enemyManager = FindObjectOfType<EnemyManager>();
         playerStats = FindObjectOfType<PlayerStats>();
@@ -48,47 +51,71 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         isPause = false;
     }
-
-    public bool getIsPause()
+    // - File Write and Read - //
+    /**********************************************************************************************/
+    
+    private void WriteDataToFile()
     {
-        return isPause;
+        StreamWriter writer = new StreamWriter(filePath, false);
+        foreach (KeyValuePair<string, string> pair in keyValuePairs)
+        {
+            writer.WriteLine(pair.Key + ":" + pair.Value);
+        }
+        writer.Close();
     }
 
-    public void setIsLevelComplete(bool _isLevelComplete)
+    private void ReadDataFromFile()
     {
-        isLevelComplete = _isLevelComplete;
+        if (File.Exists(filePath))
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
+                {
+                    string[] parts = line.Split(':');
+                    string key = parts[0];
+                    string value = parts[1];
+
+                    keyValuePairs.Add(key, value);
+                }
+        }
+        else
+        {
+            Debug.Log("FileNotFound: " + filePath);
+        }
     }
 
+    // - Update - //
+    /**********************************************************************************************/
     private void Update()
     {
-        // If the player is dead, the game time is over!
-        if(playerStats.GetIsDead()){
-            GameOver();
-        }
-
-        // If Game is over, restart the game
-        if (isGameOver == true)
-        {
-            if (restartTimer <= 0)
-            {
-                Restart();
-                restartTimer = restartDelay;
+        
+        if(SceneManager.GetActiveScene().name != "MainMenu"){
+            // If the player is dead, the game time is over!
+            if(playerStats.GetIsDead() ){
+                GameOver();
             }
-            restartTimer -= Time.deltaTime;
-        }
 
-        // Otherwise, if the player is alive, rock and roll
-        // Check if the player is pressing the escape key and the current scene is not the main menu
-        // If not already paused then pause the game
-        if (
-            Input.GetKey(KeyCode.Escape) &&
-            SceneManager.GetActiveScene().name != "MainMenu" &&
-            mainMenuTimer > mainMenuTime
-        )
-        {
-            if (!isPause)
+            // If Game is over, restart the game
+            if (isGameOver == true)
             {
-                PauseGame();
+                if (restartTimer <= 0)
+                {
+                    Restart();
+                    restartTimer = restartDelay;
+                }
+                restartTimer -= Time.deltaTime;
+            }
+            // Check if the player is pressing the escape key and the current scene is not the main menu
+            // If not already paused then pause the game
+            if (
+                Input.GetKey(KeyCode.Escape) &&
+                mainMenuTimer > mainMenuTime
+            )
+            {
+                if (!isPause)
+                {
+                    PauseGame();
+                }
             }
         }
         // Set the main menu timer
@@ -96,42 +123,73 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // - Menu related methods - //
+    /**********************************************************************************************/
     public void StartGame()
     {
         SceneManager.LoadScene("Level_1_intro");
     }
-    
-    public void PauseGame()
-    {
-        Time.timeScale = 0;
 
-        playerStats.disablePlayerScript();
-
-        gameCanvas.SetActive(false);
-        SceneManager.LoadScene("GameMenu", LoadSceneMode.Additive);
-        
-        mainMenuTimer = 0;
-        isPause = true;
-    }
-
-
-    //This method will be called when the player click the save button
-    //It will save the screen name and the player position
-    //The screen name will be used to load the screen
-    //The player position will be used to load the player position
-    //The data will be saved SaveData.txt file in JSON format
-
+    //Save the game
     public void SaveGame(){
         //Save the game
         
         string activeScreenName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
-        string filePath = Path.Combine(Application.persistentDataPath, fileName);
-        File.WriteAllText(filePath, activeScreenName);
+        keyValuePairs.Add("ActiveScreen", activeScreenName);
+        //Save Dictionary to file
+        WriteDataToFile();
+        //string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        //File.WriteAllText(filePath, activeScreenName);
+        
         ContinueGame();
         
     }
 
+    //Load the game
+    public void LoadGame(){
+
+        ReadDataFromFile();
+        try
+        {
+            string activeScreenName = keyValuePairs["ActiveScreen"];
+            SceneManager.LoadScene(activeScreenName);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log("KeyNotFound: ActiveScreen");
+        }
+    }
+    
+    // Load the next scene
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    // - In game play methods - //
+    /**********************************************************************************************/
+    // Go to main menu
+    public void goToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    // Pause the game
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+
+        playerStats.disablePlayerScript();
+        gameCanvas.SetActive(false);
+
+        SceneManager.LoadScene("GameMenu", LoadSceneMode.Additive);
+
+        mainMenuTimer = 0;
+        isPause = true;
+    }
+
+    // Continue the game
     public void ContinueGame()
     {
         GameObject uiCanvas = GameObject.Find("Canvas");
@@ -148,24 +206,32 @@ public class GameManager : MonoBehaviour
         isPause = false;
     }
 
-    public void LoadGame(){
-        //Load the game
-        string filePath = Path.Combine(Application.persistentDataPath, fileName);
-        string activeScreenName = File.ReadAllText(filePath);
-        SceneManager.LoadScene(activeScreenName);
+    // Game Over
+    public void GameOver()
+    {
+        if (isGameOver == false)
+        {
+            playerStats.disablePlayerScript();
+            isGameOver = true;
+            gameOverUI.SetActive(true);
+        }
     }
-    
+
+    // Restart the active scene
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    // Complete the level
     public void CompleteLevel()
     {
         
-        int enemyCount = enemyManager.getEnemyCount();
-        int deadEnemyCount = enemyManager.getDeadEnemyCount();
-        playerScore = deadEnemyCount * 100;
+        playerStats.SetPlayerScore(enemyManager.getDeadEnemyCount() * 100);
+        playerStats.disablePlayerScript();
+        gameCanvas.SetActive(false);
+        //mainMenuTimer = 0;
+        isPause = true;
         Debug.Log("CompleteLevel");
         if (
             SceneManager.sceneCountInBuildSettings - 1 ==
@@ -177,31 +243,26 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            keyValuePairs.Add("Score", playerStats.GetPlayerScore().ToString());
+            WriteDataToFile();
+
             completeLevelUI.SetActive(true);
             LoadNextScene();
         }
     }
-    void OnDisable()
+
+    // - Getters - //
+    /**********************************************************************************************/
+    public bool GetIsGamePause()
     {
-        PlayerPrefs.SetInt("score", playerScore);
+        return isPause;
     }
 
-    public void GameOver()
+    // - Setters - //
+    /**********************************************************************************************/
+    public void setIsLevelComplete(bool _isLevelComplete)
     {
-        if (isGameOver == false)
-        {
-            isGameOver = true;
-            gameOverUI.SetActive(true);
-        }
+        isLevelComplete = _isLevelComplete;
     }
 
-   public void LoadNextScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void goToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
 }

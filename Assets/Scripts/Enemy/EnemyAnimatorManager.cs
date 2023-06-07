@@ -20,7 +20,7 @@ public class EnemyAnimatorManager : AnimatorManager
             !GameObject
                 .Find("GameManager")
                 .GetComponent<GameManager>()
-                .getIsPause() &&
+                .GetIsGamePause() &&
             !GameObject
                 .Find("GameManager")
                 .GetComponent<GameManager>()

@@ -25,7 +25,7 @@ public class MouseLookScript : MonoBehaviour
             GameObject
                 .Find("GameManager")
                 .GetComponent<GameManager>()
-                .getIsPause()
+                .GetIsGamePause()
         )
         {
             Cursor.lockState = CursorLockMode.None;

@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
-
+    private GameObject player;
     private int playerScore = 0;
     private int playerLevel = 1;
     private int playerExperience = 0;
-
-    private int availableEnemyCount = 0;
-    private int killedEnemyCount = 0;
     
 
     // - Initial - //
     /**********************************************************************************************/
     // Start is called before the first frame update
     // set the max health of the player and the current health of the player
+    void Awake(){
+        player = GameObject.Find("Player");
+    }
+
     void Start()
     {
         maxHealth = SetMaxHealthFromHealthLevel();
@@ -48,7 +49,6 @@ public class PlayerStats : CharacterStats
     // if armor is 0% then damage goes to health
     public void TakeDamage(int damage)
     {
-        GameObject player = GameObject.Find("Player");
         if (currentArmor <= 0)
         {
             // take damage without armor
@@ -104,25 +104,25 @@ public class PlayerStats : CharacterStats
     // Disable the player scripts
     public void disablePlayerScript()
     {
-        GameObject player = GameObject.Find("Player");
         player.GetComponent<GunInventory>().enabled = false;
         player
             .GetComponent<GunInventory>()
             .currentGun
             .GetComponent<GunScript>()
             .enabled = false;
+        player.GetComponent<PlayerMovementScript>().enabled = false;
     }
 
     //Enable the player scripts
     public void enablePlayerScript()
     {
-        GameObject player = GameObject.Find("Player");
         player.GetComponent<GunInventory>().enabled = true;
         player
             .GetComponent<GunInventory>()
             .currentGun
             .GetComponent<GunScript>()
             .enabled = true;
+        player.GetComponent<PlayerMovementScript>().enabled = true;
  
     }
 
@@ -176,29 +176,5 @@ public class PlayerStats : CharacterStats
     {
         return playerExperience;
     }
-
-    // - Enemy Kill Stats- //
-    /**********************************************************************************************/
-    // Get the available enemy count
-    public int GetAvailableEnemyCount()
-    {
-        return availableEnemyCount;
-    }
-    // Set the available enemy count
-    public void SetAvailableEnemyCount(int _availableEnemyCount)
-    {
-        availableEnemyCount = _availableEnemyCount;
-    }
-    // Get the killed enemy count
-    public int GetKilledEnemyCount()
-    {
-        return killedEnemyCount;
-    }
-    // Set the killed enemy count
-    public void SetKilledEnemyCount(int _killedEnemyCount)
-    {
-        killedEnemyCount = _killedEnemyCount;
-    }
-
 
 }
