@@ -206,5 +206,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageValue: 1
-  EnemyDamageValue: 0
+  EnemyDamageValue: 1
   TimerMax: 0.1
