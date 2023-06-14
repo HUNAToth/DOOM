@@ -36,17 +36,20 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
     public void SaveGame()
     {
         gameManager.SaveGame();
     }
+
     public void LoadGame()
     {
         gameManager.LoadGame();
     }
+
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //gameManager.LoadNextScene();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        gameManager.LoadNextScene();
     }
 }

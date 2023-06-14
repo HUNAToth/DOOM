@@ -179,15 +179,24 @@ public class GameManager : MonoBehaviour
     public void LoadNextScene()
     {
         saveData.playerScore = 0;
-        playerStats.SetPlayerScore(0);
+        if (playerStats != null)
+        {
+            playerStats.SetPlayerScore(0);
+        }
 
         // TODO Debuging why bugy when should load main menu at the end of the game
+        Debug.Log("SceneCount: " + SceneManager.sceneCountInBuildSettings);
+
+        //Debug.Log(SceneManager.GetActiveScene().buildIndex);
         if (
             SceneManager.sceneCountInBuildSettings - 1 ==
             SceneManager.GetActiveScene().buildIndex
         )
         {
-            completeAllLevelUI.SetActive(true);
+            if (completeAllLevelUI != null)
+            {
+                completeAllLevelUI.SetActive(true);
+            }
             SceneManager.LoadScene("MainMenu");
         }
         else
