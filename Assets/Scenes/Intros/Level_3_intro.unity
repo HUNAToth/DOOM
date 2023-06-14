@@ -462,6 +462,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7017624711507323888, guid: 522ae31ed0ca3d8489a65d5bac231278, type: 3}
+      propertyPath: m_Text
+      value: Emerging from the abyss, the space marine finds himself in the eerie
+        halls of the Twilight Ruins, a place where darkness and ancient malevolence
+        converge, each step leading him closer to the heart of the evil that threatens
+        to consume the cosmos.
+      objectReference: {fileID: 0}
     - target: {fileID: 7017624712010003363, guid: 522ae31ed0ca3d8489a65d5bac231278, type: 3}
       propertyPath: m_Pivot.x
       value: 0

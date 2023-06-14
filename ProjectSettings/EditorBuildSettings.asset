@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Outros/Level_1_outro.unity
     guid: de9c14aa65ea45f4d82878833d441180
   - enabled: 1
+    path: Assets/Scenes/Outros/Level_1_outro_desc.unity
+    guid: 596d0be821c78714f8030b1ed803310d
+  - enabled: 1
     path: Assets/Scenes/Intros/Level_2_intro.unity
     guid: 62fdbcc314001804bab4405866ee1594
   - enabled: 1
@@ -30,6 +33,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Outros/Level_2_outro.unity
     guid: 65d33cbf13798f646a722b84298d182f
   - enabled: 1
+    path: Assets/Scenes/Outros/Level_2_outro_desc.unity
+    guid: dbd40b338a494024aba2547955ab24d0
+  - enabled: 1
     path: Assets/Scenes/Intros/Level_3_intro.unity
     guid: 27f80e173e0d2584aaa79701c3b3f1f5
   - enabled: 1
@@ -38,5 +44,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Outros/Level_3_outro.unity
     guid: fcfc6132231255d4486766e72cbb35fd
+  - enabled: 1
+    path: Assets/Scenes/Outros/Level_3_outro_desc.unity
+    guid: bb71b6c99d808fb4abf6ac0fa360f13c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
