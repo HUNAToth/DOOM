@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.IO;
-using Newtonsoft.Json;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,17 +12,24 @@ public class GameManager : MonoBehaviour
     public class SaveData
     {
         public string activeScreenName;
+
         public int enemyCount;
+
         public int enemyDeadCount;
+
         public int healthBonus;
+
         public int playerScore;
     }
+
     private SaveData saveData;
+
     private static string filePath;
 
     private GameObject gameCanvas;
 
     private EnemyManager enemyManager;
+
     private PlayerStats playerStats;
 
     [SerializeField]
@@ -62,22 +69,22 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         isPause = false;
     }
+
     // - File Write and Read - //
     /**********************************************************************************************/
-    
     private void WriteDataToFile()
     {
         string jsonData = JsonConvert.SerializeObject(saveData);
 
         // Fájlba írás
-        File.WriteAllText(filePath, jsonData);
+        File.WriteAllText (filePath, jsonData);
 
         Debug.Log("SaveFile: " + filePath);
     }
 
     private void ReadDataFromFile()
     {
-      if (File.Exists(filePath))
+        if (File.Exists(filePath))
         {
             string jsonData = File.ReadAllText(filePath);
 
@@ -97,10 +104,11 @@ public class GameManager : MonoBehaviour
     /**********************************************************************************************/
     private void Update()
     {
-        
-        if(SceneManager.GetActiveScene().name != "MainMenu"){
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
             // If the player is dead, the game time is over!
-            if(playerStats!=null && playerStats.GetIsDead() ){
+            if (playerStats != null && playerStats.GetIsDead())
+            {
                 GameOver();
             }
 
@@ -114,12 +122,10 @@ public class GameManager : MonoBehaviour
                 }
                 restartTimer -= Time.deltaTime;
             }
+
             // Check if the player is pressing the escape key and the current scene is not the main menu
             // If not already paused then pause the game
-            if (
-                Input.GetKey(KeyCode.Escape) &&
-                mainMenuTimer > mainMenuTime
-            )
+            if (Input.GetKey(KeyCode.Escape) && mainMenuTimer > mainMenuTime)
             {
                 if (!isPause)
                 {
@@ -127,9 +133,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
         // Set the main menu timer
         mainMenuTimer += Time.deltaTime;
-
     }
 
     // - Menu related methods - //
@@ -141,24 +147,24 @@ public class GameManager : MonoBehaviour
     }
 
     //Save the game
-    public void SaveGame(){
+    public void SaveGame()
+    {
         //Save the game
-
-        string activeScreenName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        string activeScreenName =
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         saveData.activeScreenName = activeScreenName;
 
         saveData.playerScore = 0;
         playerStats.SetPlayerScore(0);
-    
+
         WriteDataToFile();
-        
+
         ContinueGame();
-        
     }
 
     //Load the game
-    public void LoadGame(){
-
+    public void LoadGame()
+    {
         try
         {
             SceneManager.LoadScene(saveData.activeScreenName);
@@ -168,12 +174,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("KeyNotFound: ActiveScreen");
         }
     }
-    
+
     // Load the next scene
     public void LoadNextScene()
     {
         saveData.playerScore = 0;
         playerStats.SetPlayerScore(0);
+
         // TODO Debuging why bugy when should load main menu at the end of the game
         if (
             SceneManager.sceneCountInBuildSettings - 1 ==
@@ -185,7 +192,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager
+                .LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
@@ -250,8 +258,19 @@ public class GameManager : MonoBehaviour
     {
         int enemyCount = enemyManager.getEnemyCount();
         int deadEnemyCount = enemyManager.getDeadEnemyCount();
-        int healthBonus = (int)(playerStats.GetCurrentHealth() / playerStats.GetMaxHealth()*100) * 1000;
-        int enemyBonus = enemyCount/deadEnemyCount * 100;
+        int healthBonus =
+            (
+            int
+            )(playerStats.GetCurrentHealth() /
+            playerStats.GetMaxHealth() *
+            100) *
+            1000;
+        int enemyBonus = 0;
+
+        if (deadEnemyCount != 0)
+        {
+            enemyBonus = enemyCount / deadEnemyCount * 100;
+        }
 
         saveData.enemyCount = enemyCount;
         saveData.enemyDeadCount = deadEnemyCount;
@@ -260,7 +279,6 @@ public class GameManager : MonoBehaviour
 
         saveData.healthBonus = healthBonus;
         saveData.playerScore = enemyBonus + healthBonus;
-        
 
         gameCanvas.SetActive(false);
         isPause = true;
@@ -274,8 +292,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-
-            
             WriteDataToFile();
 
             completeLevelUI.SetActive(true);
@@ -289,6 +305,7 @@ public class GameManager : MonoBehaviour
     {
         return isPause;
     }
+
     public SaveData GetSaveData()
     {
         return saveData;
@@ -300,5 +317,4 @@ public class GameManager : MonoBehaviour
     {
         isLevelComplete = _isLevelComplete;
     }
-
 }
