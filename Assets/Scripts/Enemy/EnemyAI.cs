@@ -22,6 +22,8 @@ public class EnemyAI : MonoBehaviour
     private Vector3 destinationPoint;
 
     bool isDestinationSet;
+    float destinationTimer;
+
 
     //Attacking
     public GameObject projectile;
@@ -58,49 +60,26 @@ public class EnemyAI : MonoBehaviour
 
         if (enemyStats.GetCurrentHealth() > 0)
         {
-            if (enemyStats.GetLastSeenEnemy() != null && playerIsInAttackRange)
+            if (!playerIsInSightRange && !playerIsInAttackRange)
             {
-                AttackPlayer();
-            }
-            else if (
-                enemyStats.GetLastSeenEnemy() != null && !playerIsInAttackRange
-            )
-            {
-                ChasePlayer();
-            }
-            else if (!playerIsInSightRange && !playerIsInAttackRange)
-            {
+                Debug.Log("Patrolling");
                 Patrolling();
             }
-            else if (playerIsInSightRange && !playerIsInAttackRange)
+            if (
+                (enemyStats.GetLastSeenEnemy() != null && !playerIsInAttackRange) || (playerIsInSightRange && !playerIsInAttackRange) ||( enemyStats.GetLastSeenEnemy() != null && playerIsInSightRange && alreadyAttacked)
+            )
             {
+                Debug.Log("ChasePlayer");
                 ChasePlayer();
             }
-            else if (playerIsInSightRange && playerIsInAttackRange)
+            if ((enemyStats.GetLastSeenEnemy() != null && playerIsInAttackRange ) || (playerIsInSightRange && playerIsInAttackRange)) 
             {
+                Debug.Log("AttackPlayer");
                 AttackPlayer();
             }
-        }
-    }
-
-    private void Patrolling()
-    {
-        // Debug.Log("Patrolling");
-        enemyAnimatorManager.SetWalk(true);
-        if (!isDestinationSet)
-        {
-            SearchDestinationPoint();
-        }
-        if (isDestinationSet)
-        {
-            navMeshAgent.SetDestination (destinationPoint);
-        }
-
-        Vector3 distanceTodestinationPoint =
-            transform.position - destinationPoint;
-        if (distanceTodestinationPoint.magnitude < 2f)
-        {
-            isDestinationSet = false;
+           
+         
+        
         }
     }
 
@@ -122,12 +101,37 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+     private void Patrolling()
+    {
+        // Debug.Log("Patrolling");
+        if (!isDestinationSet)
+        {
+
+            SearchDestinationPoint();
+        }
+        if (isDestinationSet)
+        {
+            navMeshAgent.SetDestination (destinationPoint);
+        }
+        
+        enemyAnimatorManager.SetWalk(true);
+
+        Vector3 distanceToDestinationPoint =
+            transform.position - destinationPoint;
+
+        Debug.Log(distanceToDestinationPoint.magnitude);
+
+        if (distanceToDestinationPoint.magnitude < 2f)
+        {
+            isDestinationSet = false;
+        }
+    }
+
     // Chase player
     private void ChasePlayer()
     {
-        //   Debug.Log("ChasePlayer");
-        enemyAnimatorManager.SetWalk(true);
         navMeshAgent.SetDestination(Player.position);
+        enemyAnimatorManager.SetWalk(true);
     }
 
     private void AttackPlayer()
