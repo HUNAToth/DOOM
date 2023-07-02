@@ -60,21 +60,22 @@ public class EnemyAI : MonoBehaviour
 
         if (enemyStats.GetCurrentHealth() > 0)
         {
-            if (!playerIsInSightRange && !playerIsInAttackRange)
+          
+       if (!playerIsInSightRange && !playerIsInAttackRange)
             {
-                Debug.Log("Patrolling");
+               
                 Patrolling();
             }
             if (
                 (enemyStats.GetLastSeenEnemy() != null && !playerIsInAttackRange) || (playerIsInSightRange && !playerIsInAttackRange) ||( enemyStats.GetLastSeenEnemy() != null && playerIsInSightRange && alreadyAttacked)
             )
             {
-                Debug.Log("ChasePlayer");
+              
                 ChasePlayer();
             }
             if ((enemyStats.GetLastSeenEnemy() != null && playerIsInAttackRange ) || (playerIsInSightRange && playerIsInAttackRange)) 
             {
-                Debug.Log("AttackPlayer");
+              
                 AttackPlayer();
             }
            
@@ -103,7 +104,6 @@ public class EnemyAI : MonoBehaviour
 
      private void Patrolling()
     {
-        // Debug.Log("Patrolling");
         if (!isDestinationSet)
         {
 
@@ -111,15 +111,13 @@ public class EnemyAI : MonoBehaviour
         }
         if (isDestinationSet)
         {
-            navMeshAgent.SetDestination (destinationPoint);
+            navMeshAgent.SetDestination(destinationPoint);
         }
         
         enemyAnimatorManager.SetWalk(true);
 
         Vector3 distanceToDestinationPoint =
             transform.position - destinationPoint;
-
-        Debug.Log(distanceToDestinationPoint.magnitude);
 
         if (distanceToDestinationPoint.magnitude < 2f)
         {
