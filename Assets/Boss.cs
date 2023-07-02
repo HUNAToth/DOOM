@@ -19,8 +19,12 @@ public class Boss : MonoBehaviour
         {
             Debug.Log("Boss Triggered");
             animator.SetTrigger("start");
-            boss.SetActive(true);
         }
         
+    }
+    
+    public void SetBossActive()
+    {
+        boss.SetActive(true);
     }
 }
